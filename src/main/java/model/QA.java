@@ -17,6 +17,13 @@ public final class QA {
         this.answers = answers;
     }
 
+    public QA(int id, String question, List<Answer> answers, String category) {
+        this.id = id;
+        this.question = question;
+        this.answers = answers;
+        this.category = category;
+    }
+
     public int getId() {
         return id;
     }

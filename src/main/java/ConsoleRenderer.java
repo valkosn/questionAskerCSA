@@ -31,7 +31,7 @@ public class ConsoleRenderer implements Renderer{
 
             for (QA question : questions) {
                 checkTime();
-                List<Answer> answersToPublishing = printQuestionAndCheckAnswer(question, bufferedReader);
+                List<Answer> answersToPublishing = printQuestionAndCheckAnswer(question);
                 waiting:
                 while (true) {
                     checkTime();
@@ -55,7 +55,7 @@ public class ConsoleRenderer implements Renderer{
         exit();
     }
 
-    private List<Answer> printQuestionAndCheckAnswer(QA question, BufferedReader bufferedReader) throws IOException {
+    private List<Answer> printQuestionAndCheckAnswer(QA question) throws IOException {
         System.out.println(question.getQuestion());
 
         List<Answer> originalAnswers = question.getAnswers();
@@ -80,7 +80,7 @@ public class ConsoleRenderer implements Renderer{
             if ("n".equalsIgnoreCase(rawSelectedAnswer)) {
                 return Options.NEXT;
             }
-            int selectedAnswer = 0;
+            int selectedAnswer;
 
             try {
                 selectedAnswer = Integer.parseInt(rawSelectedAnswer) - 1;

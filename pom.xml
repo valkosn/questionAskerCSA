@@ -7,7 +7,7 @@
     <groupId>questionAsker</groupId>
     <artifactId>questionAskerCSA</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <properties>
         <org.springframework.version>4.1.6.RELEASE</org.springframework.version>
