@@ -8,10 +8,9 @@ import service.QaService;
 public class App {
 
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"service.xml"});
+        ApplicationContext context = new ClassPathXmlApplicationContext("service.xml", "render.xml");
         QaService service = context.getBean("qa_service", QaService.class);
-        System.out.println(service.find(25));
+        Renderer renderer = context.getBean("console_renderer", Renderer.class);
+        renderer.render(service.getAllQuestions());
     }
-
-
 }

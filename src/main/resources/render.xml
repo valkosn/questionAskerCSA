@@ -3,12 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="qa_dao" class="dao.QaDaoImpl">
-        <constructor-arg value="C:/Work/questionAskerCSA/src/main/db/QuestionsDB.json"/>
-    </bean>
-
-    <bean id="category_dao" class="dao.CategoryDaoImpl">
+    <bean id="console_renderer" class="ConsoleRenderer">
 
     </bean>
-
 </beans>

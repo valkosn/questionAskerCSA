@@ -20,9 +20,10 @@ public class QaDaoImpl implements QaDao {
 
     private Set<QA> questions = new HashSet<>();
 
-    private String filePath = "C:/Work/questionAskerCSA/src/main/db/QuestionsDB.json";
+    private String filePath;
 
-    public QaDaoImpl() {
+    public QaDaoImpl(String filePath) {
+        this.filePath = filePath;
         init();
     }
 

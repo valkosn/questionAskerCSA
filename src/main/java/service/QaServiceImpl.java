@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 /**
  * Created by Valko Serhii on 29-Aug-16.
@@ -20,6 +21,7 @@ public class QaServiceImpl implements QaService {
     public QaServiceImpl() {
     }
 
+    @Override
     public QA find(int id) {
         for (QA question : qaDAO.getQuestions()) {
             if(question.getId() == id)
@@ -28,19 +30,32 @@ public class QaServiceImpl implements QaService {
         throw new NoSuchElementException("Question with id - " + id + " not found");
     }
 
-    public QA findByQuestion(String question) {
-        return null;
+    @Override
+    public QA findByQuestion(String questionValue) {
+        for (QA question : qaDAO.getQuestions()) {
+            if(question.getQuestion().equals(questionValue))
+                return question;
+        }
+        throw new NoSuchElementException("Question with questionValue - " + questionValue + " not found");
     }
 
+    @Override
     public boolean save(QA qa) {
         return false;
     }
 
+    @Override
     public boolean delete(int id) {
         return false;
     }
 
-    public List<QA> findAllQuestionByCategory(String category) {
+    @Override
+    public Set<QA> findAllQuestionByCategory(String category) {
         return null;
+    }
+
+    @Override
+    public Set<QA> getAllQuestions() {
+        return qaDAO.getQuestions();
     }
 }
