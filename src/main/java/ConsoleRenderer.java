@@ -12,12 +12,17 @@ import java.util.Set;
 /**
  * Created by Valko Serhii on 29-Aug-16.
  */
-public class ConsoleRenderer implements Renderer{
+public class ConsoleRenderer implements Renderer {
 
+    private Set<QA> questions;
     private long start = 0;
     private long endOfTest = 0;
     private int rightAnswers = 0;
     private int wrongAnswers = 0;
+
+    public void setQuestions(Set<QA> questions) {
+        this.questions = questions;
+    }
 
     @Override
     public void render(Set<QA> questions) {
@@ -98,9 +103,7 @@ public class ConsoleRenderer implements Renderer{
                     System.out.println("Be careful next time");
                     wrongAnswers++;
                 }
-            }
-            else
-            {
+            } else {
                 return Options.TYPO;
             }
         }

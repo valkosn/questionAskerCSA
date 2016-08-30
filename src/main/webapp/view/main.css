@@ -1,0 +1,48 @@
+body {
+    padding: 15px;
+    height: 100%;
+}
+
+li {
+    cursor: pointer;
+}
+
+label#title {
+    font-size: 17pt;
+    padding: 5px;
+}
+
+.question {
+    padding: 5px;
+    font-size: 15px;
+}
+
+.questions{
+}
+
+.answers {
+    cursor: pointer;
+}
+
+.title{
+    font-size: 12px;
+}
+
+.title,
+.question {
+    display: block;
+}
+
+.header_message {
+    color: red;
+    font-size: 10px;
+    text-align: center;
+}
+
+div#result_message{
+    display: inline-block;
+}
+
+.control_container {
+    padding-top: 15px;
+}

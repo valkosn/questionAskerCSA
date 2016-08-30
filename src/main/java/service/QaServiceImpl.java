@@ -3,6 +3,7 @@ package service;
 import dao.CategoryDao;
 import dao.QaDao;
 import model.QA;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
  */
 public class QaServiceImpl implements QaService {
 
-    private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dao.xml");
+    private ApplicationContext context = new ClassPathXmlApplicationContext("spring/dao.xml");
     private QaDao qaDAO = context.getBean("qa_dao", QaDao.class);
     private CategoryDao categoryDAO = context.getBean("category_dao", CategoryDao.class);
 
