@@ -2,9 +2,7 @@ package service;
 
 import dao.CategoryDao;
 import dao.QaDao;
-import model.QA;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import enteties.QA;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.NoSuchElementException;
@@ -16,9 +14,8 @@ import java.util.stream.Collectors;
  */
 public class QaServiceImpl implements QaService {
 
-    private ApplicationContext context = new ClassPathXmlApplicationContext("spring/dao.xml");
-    private QaDao qaDAO = context.getBean("qa_dao", QaDao.class);
-    private CategoryDao categoryDAO = context.getBean("category_dao", CategoryDao.class);
+    private QaDao qaDAO;
+    private CategoryDao categoryDAO;
 
     public QaServiceImpl() {
     }
@@ -63,5 +60,13 @@ public class QaServiceImpl implements QaService {
     @Override
     public Set<QA> getAllQuestions() {
         return qaDAO.getQuestions();
+    }
+
+    public void setQaDAO(QaDao qaDAO) {
+        this.qaDAO = qaDAO;
+    }
+
+    public void setCategoryDAO(CategoryDao categoryDAO) {
+        this.categoryDAO = categoryDAO;
     }
 }

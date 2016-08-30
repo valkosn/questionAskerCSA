@@ -1,7 +1,7 @@
 package dao;
 
-import model.Answer;
-import model.QA;
+import enteties.Answer;
+import enteties.QA;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;

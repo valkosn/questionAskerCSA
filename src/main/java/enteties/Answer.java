@@ -1,4 +1,4 @@
-package model;
+package enteties;
 
 /**
  * Created by Valko Serhii on 29-Aug-16.

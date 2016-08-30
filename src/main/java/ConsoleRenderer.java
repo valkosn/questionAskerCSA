@@ -1,5 +1,6 @@
-import model.Answer;
-import model.QA;
+import enteties.Answer;
+import enteties.QA;
+import service.QaService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,18 +15,16 @@ import java.util.Set;
  */
 public class ConsoleRenderer implements Renderer {
 
-    private Set<QA> questions;
     private long start = 0;
     private long endOfTest = 0;
     private int rightAnswers = 0;
     private int wrongAnswers = 0;
 
-    public void setQuestions(Set<QA> questions) {
-        this.questions = questions;
-    }
+    private QaService qaService;
 
     @Override
-    public void render(Set<QA> questions) {
+    public void render() {
+        Set<QA> questions = qaService.getAllQuestions();
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("To quit type [q], for next question type [n]");
             long timeForTestInSec = questions.size() * 30;
@@ -108,6 +107,10 @@ public class ConsoleRenderer implements Renderer {
             }
         }
         return Options.NEXT;
+    }
+
+    public void setQaService(QaService qaService) {
+        this.qaService = qaService;
     }
 
     private enum Options {

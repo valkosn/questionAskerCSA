@@ -1,8 +1,7 @@
 package dao;
 
-import model.QA;
+import enteties.QA;
 
-import java.util.List;
 import java.util.Set;
 
 /**
