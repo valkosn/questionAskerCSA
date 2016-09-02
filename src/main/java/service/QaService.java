@@ -2,6 +2,7 @@ package service;
 
 import enteties.QA;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,6 +14,8 @@ public interface QaService {
     QA findByQuestion (String question);
     boolean save (QA qa);
     boolean delete (int id);
-    Set<QA> findAllQuestionByCategory (String category);
-    Set<QA> getAllQuestions();
+    List<QA> findAllQuestionByCategory (String category);
+    List<QA> getAllQuestions();
+    List<QA> getRandomQuestions(int amount);
+    int getQuestionAmount();
 }

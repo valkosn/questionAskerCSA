@@ -2,13 +2,13 @@ package dao;
 
 import enteties.QA;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by Valko Serhii on 29-Aug-16.
  */
 public interface QaDao {
 
-    Set<QA> getQuestions();
-    void setQuestions(Set<QA> questions);
+    List<QA> getQuestions();
+    void setQuestions(List<QA> questions);
 }

@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>QuestionAsker</title>
-    <link rel="stylesheet" type="text/css" href="../../resources/css/main.css">
+    <link href="../../resources/css/main.css" rel="stylesheet" type="text/css">
+    <script>
+        data = ${data};
+        questionsAmount = ${questionsAmount};
+        timePerQuestion = ${timePerQuestion};
+    </script>
+    <script src="../../resources/js/common.js" type="text/javascript"></script>
+    <script src="../../resources/js/${additionalJS}.js" type="text/javascript"></script>
 </head>
 <header>
     <div class="header_message">
@@ -13,48 +20,27 @@
 <body>
 <h1><strong>Welcome to Question Asker!!!</strong></h1>
 
-<script src="../../resources/lib/jquery-3.1.0.min.js"></script>
-<script type="text/javascript">
-    var prefix = '/devcolibri-rest/myservice';
-
-    var RestGet = function () {
-        $.ajax({
-            type: 'GET',
-            url: prefix + '/' + Date.now(),
-            dataType: 'json',
-            async: true,
-            success: function (result) {
-                alert('Время: ' + result.time
-                        + ', сообщение: ' + result.message);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert(jqXHR.status + ' ' + jqXHR.responseText);
-            }
-        });
-    }
-</script>
-
-<form id="form" name="test" method="post">
+<form id="form" name="start" method="post" action="${pageContext.request.contextPath}/test">
 
     <div id="start_screen_holder" rel="main">
 
         <div id="prompt">If you are ready, press START. Good luck!</div>
-        <H1>${message}</H1>
 
         <div class="control_container">
-            <input id="start" type="button" onclick="RestGet()" value="Start">
-            <select id="text_type" title="Test type">
-                <option value="1" selected="selected">Normal</option>
-                <option value="0">Offline</option>
+            <input id="start" type="submit" value="Start">
+            <select id="test_type" name="testType" title="Test type">
+                <option value="normal" selected="selected">Normal</option>
+                <option value="offline">Offline</option>
             </select>
-            <select id="questions_amount" title="Amount of questions" onclick="addMaxValueToQuestionAmount()">
+            <select id="questions_amount" name="questionsAmount" title="Amount of questions">
                 <option value="5">5 questions</option>
                 <option value="10">10 questions</option>
                 <option value="25">25 questions</option>
                 <option value="50" selected="selected">50 questions</option>
                 <option value="100">100 questions</option>
+                <option value="${maxQaAmount}">${maxQaAmount} questions</option>
             </select>
-            <select id="time_per_question" title="Time per question">
+            <select id="time_per_question" name="timePerQuestion" title="Time per question">
                 <option value="1">1 sec/question</option>
                 <option value="30">30 sec/question</option>
                 <option value="60">1 min/question</option>
@@ -66,5 +52,44 @@
         </div>
     </div>
 </form>
+<div id="test_answers"></div>
+
+<div id="question_holder_" class="questions" style="display: none;">
+    <label id="title_" class="title">Question: {{qn/qa}}
+        <span id="question_" class="question"></span>
+    </label>
+
+    <label class="title">Choice the answer:</label>
+    <div id="answer_container_"></div>
+    <div class="control_container">
+        <input name="previous_question" type="button" value="Previous question" onclick="getPreviousQuestion()"
+               disabled/>
+        <input name="next_question" type="button" value="Next question" onclick="getNextQuestion()"/>
+        <input name="finish" type="button" value="Result" onclick="renderResults()" style="display: none;"/>
+    </div>
+</div>
+
+<div id="time_holder"></div>
+
+<label id="answer_holder_" class="answers" style="display: none;">
+    <input type="radio" name="answer_"/>
+    <span id="answer_text_"></span>
+</label>
+
+<div id="result_screen" style="display: none;">
+
+    <div id="results_holder">
+        <ul id="results"></ul>
+    </div>
+
+    <div class="control_container">
+        <input id="evaluate" type="button" value="Evaluate" onclick="evaluateResults()"/>
+        <input id="new_attempt" type="button" value="New attempt" onclick="newAttempt()"/>
+        <div id="result_message"></div>
+    </div>
+</div>
+
+<script>${scriptToRun}</script>
+
 </body>
 </html>

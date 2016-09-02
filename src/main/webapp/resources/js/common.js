@@ -4,8 +4,6 @@
 
 var common = {
     incomeData: data,
-    questionsAmount: undefined,
-    timePerQuestion: undefined,
     currantQuestion: -1,
     renderedQuestionsAmount: 0,
     isResultsRendered: false,
@@ -88,7 +86,7 @@ function addMaxValueToQuestionAmount() {
 }
 
 function checkForLastQuestion() {
-    if (common.currantQuestion == common.questionsAmount - 1) {
+    if (common.currantQuestion == questionsAmount - 1) {
         var currantHolder = document.getElementById("question_holder_" + common.currantQuestion);
         currantHolder.findChildByName("next_question").hideNode();
         var finishButtons = document.getElementsByName("finish");
@@ -102,16 +100,20 @@ function hideCurrantQuestion() {
     document.getElementById("question_holder_" + common.currantQuestion).hide();
 }
 
+function getStartData() {
+
+}
+
 function startTest() {
     common.timeStart = new Date();
     var questionsAmountElement = document.getElementById("questions_amount");
     var timePerQuestionElement = document.getElementById("time_per_question");
-    common.questionsAmount = questionsAmountElement.options[questionsAmountElement.selectedIndex].value;
-    common.timePerQuestion = timePerQuestionElement.options[timePerQuestionElement.selectedIndex].value;
-    if (common.timePerQuestion == -1) {
+    // questionsAmount = questionsAmountElement.options[questionsAmountElement.selectedIndex].value;
+    // common.timePerQuestion = timePerQuestionElement.options[timePerQuestionElement.selectedIndex].value;
+    if (timePerQuestion == -1) {
         common.isMinusCount = false;
     } else {
-        var allTime = common.questionsAmount * common.timePerQuestion;
+        var allTime = questionsAmount * timePerQuestion;
         common.timeToEnd = new Date();
         common.timeToEnd.setSeconds(common.timeToEnd.getSeconds() + allTime);
     }
@@ -160,7 +162,7 @@ function renderQuestionAndAnswers(question, answers, questionNumber) {
 
     var questionTitle = questionContainer.findChildById("title_");
     questionTitle.id = questionTitle.id + questionNumber;
-    var navPoint = questionNumber + 1 + "/" + common.questionsAmount;
+    var navPoint = questionNumber + 1 + "/" + questionsAmount;
     questionTitle.innerHTML = questionTitle.innerHTML.toString().replace("{{qn/qa}}", navPoint);
 
     var questionBox = questionContainer.findChildById("question_");
@@ -203,7 +205,7 @@ function renderResults() {
         var resultScreen = document.getElementById("result_screen");
         resultScreen.show();
         var resultsContainer = document.getElementById("results");
-        for (var i = 0; i < common.questionsAmount; i++) {
+        for (var i = 0; i < questionsAmount; i++) {
             var resultItem = document.createElement("li");
             resultItem.setAttribute("onclick", "getQuestion(" + i + ")");
             resultItem.setAttribute("id", "result_" + i);
@@ -224,7 +226,7 @@ function renderResults() {
 function evaluateResults() {
     common.isEvaluated = true;
     var truAnswersAmount = 0;
-    for (var i = common.questionsAmount - 1; i >= 0; i--) {
+    for (var i = questionsAmount - 1; i >= 0; i--) {
         var resultItem = document.getElementById("result_" + i);
         if (checkQuestion(i)) {
             resultItem.setAttribute("style", "color: green;");
@@ -234,12 +236,12 @@ function evaluateResults() {
         }
     }
     document.getElementById("evaluate").setAttribute("disabled", "");
-    var resultPercent = Math.round(truAnswersAmount / common.questionsAmount * 100);
+    var resultPercent = Math.round(truAnswersAmount / questionsAmount * 100);
     var spentTimeElement = document.getElementById("time_holder");
     spentTimeElement.hide();
     var resultTime = common.isMinusCount ? ". The remaining time is " + spentTimeElement.innerHTML : ". Spent time " + spentTimeElement.innerHTML;
     var resultString = "Your result is " + resultPercent + "%. "
-        + "You answer right for " + truAnswersAmount + " question(s) from " + common.questionsAmount
+        + "You answer right for " + truAnswersAmount + " question(s) from " + questionsAmount
         + resultTime;
     document.getElementById("result_message").innerHTML = resultString;
 }
@@ -277,7 +279,7 @@ function time() {
             + (tSec != 0 ? tSec + " sec" : "");
         window.setTimeout("time()", 1000);
     } else {
-        while (common.currantQuestion < common.questionsAmount - 1) {
+        while (common.currantQuestion < questionsAmount - 1) {
             getNextQuestion();
         }
         renderResults();

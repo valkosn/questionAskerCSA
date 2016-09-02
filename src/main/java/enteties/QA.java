@@ -1,23 +1,36 @@
 package enteties;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 /**
  * Created by Valko Serhii on 29-Aug-16.
  */
 public final class QA {
+    @JsonIgnore
     private int id;
-    private String category;
-    private String question;
-    private List<Answer> answers;
 
-    public QA(int id, String question, List<Answer> answers) {
+    @JsonIgnore
+    private java.lang.String category;
+
+    @JsonProperty("question")
+    private java.lang.String question;
+
+    @JsonProperty("answers")
+    private List<String> answers;
+
+    public QA() {
+    }
+
+    public QA(int id, java.lang.String question, List<String> answers) {
         this.id = id;
         this.question = question;
         this.answers = answers;
     }
 
-    public QA(int id, String question, List<Answer> answers, String category) {
+    public QA(int id, java.lang.String question, List<String> answers, java.lang.String category) {
         this.id = id;
         this.question = question;
         this.answers = answers;
@@ -28,24 +41,16 @@ public final class QA {
         return id;
     }
 
-    public String getCategory() {
+    public java.lang.String getCategory() {
         return category;
     }
 
-    public String getQuestion() {
+    public java.lang.String getQuestion() {
         return question;
     }
 
-    public List<Answer> getAnswers() {
+    public List<String> getAnswers() {
         return answers;
     }
 
-    @Override
-    public String toString() {
-        return "QA{" +
-                "id=" + id +
-                ", question='" + question + '\'' +
-                ", answers=" + answers +
-                '}';
-    }
 }

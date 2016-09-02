@@ -5,8 +5,7 @@ import dao.QaDao;
 import enteties.QA;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -22,11 +21,7 @@ public class QaServiceImpl implements QaService {
 
     @Override
     public QA find(int id) {
-        for (QA question : qaDAO.getQuestions()) {
-            if (question.getId() == id)
-                return question;
-        }
-        throw new NoSuchElementException("Question with id - " + id + " not found");
+        return qaDAO.getQuestions().get(id);
     }
 
     @Override
@@ -39,10 +34,10 @@ public class QaServiceImpl implements QaService {
     }
 
     @Override
-    public Set<QA> findAllQuestionByCategory(String category) {
+    public List<QA> findAllQuestionByCategory(String category) {
 
         return qaDAO.getQuestions().stream().filter(question ->
-                question.getCategory().equals(category)).collect(Collectors.toSet());
+                question.getCategory().equals(category)).collect(Collectors.toList());
     }
 
     @Override
@@ -58,8 +53,20 @@ public class QaServiceImpl implements QaService {
     }
 
     @Override
-    public Set<QA> getAllQuestions() {
+    public List<QA> getAllQuestions() {
         return qaDAO.getQuestions();
+    }
+
+    @Override
+    public List<QA> getRandomQuestions(int amount) {
+        List<QA> shuffledList = new ArrayList<>(qaDAO.getQuestions());
+        Collections.shuffle(shuffledList);
+        return shuffledList.subList(0, amount - 1);
+    }
+
+    @Override
+    public int getQuestionAmount(){
+        return qaDAO.getQuestions().size();
     }
 
     public void setQaDAO(QaDao qaDAO) {

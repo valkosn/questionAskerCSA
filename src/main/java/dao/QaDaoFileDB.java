@@ -1,6 +1,5 @@
 package dao;
 
-import enteties.Answer;
 import enteties.QA;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -9,30 +8,28 @@ import org.json.JSONTokener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Valko Serhii on 29-Aug-16.
  */
-public class QaDaoImpl implements QaDao {
+public class QaDaoFileDB implements QaDao {
 
-    private Set<QA> questions = new HashSet<>();
+    private List<QA> questions = new ArrayList<>();
 
-    private String filePath;
+    private java.lang.String filePath;
 
-    public QaDaoImpl(String filePath) {
+    public QaDaoFileDB(java.lang.String filePath) {
         this.filePath = filePath;
         init();
     }
 
-    public Set<QA> getQuestions() {
+    public List<QA> getQuestions() {
 
         return questions;
     }
 
-    public void setQuestions(Set<QA> questions) {
+    public void setQuestions(List<QA> questions) {
         this.questions = questions;
     }
 
@@ -47,11 +44,11 @@ public class QaDaoImpl implements QaDao {
         int id = 0;
         for (Object currObj : allJSONQuestions) {
             JSONObject jsonObject = (JSONObject) currObj;
-            String question = jsonObject.getString("question");
+            java.lang.String question = jsonObject.getString("question");
             JSONArray answers = new JSONArray(jsonObject.getJSONArray("answers").toString());
-            List<Answer> answersList = new ArrayList<>(answers.length());
+            List<String> answersList = new ArrayList<>(answers.length());
             for (Object currAnswer : answers) {
-                answersList.add(new Answer((String) currAnswer));
+                answersList.add((String) currAnswer);
             }
             questions.add(new QA(id, question, answersList));
             id++;
