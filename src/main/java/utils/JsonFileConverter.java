@@ -23,10 +23,9 @@ public class JsonFileConverter {
         return mapper.writeValueAsString(qaList);
     }
 
+    @SuppressWarnings("unchecked")
     public static List<QA> toJavaObject() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-
-        //TODO: Fix unchecked assignment
         return mapper.readValue(new File(baseFile), List.class);
     }
 }

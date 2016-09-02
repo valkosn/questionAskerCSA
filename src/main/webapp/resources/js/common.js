@@ -106,10 +106,6 @@ function getStartData() {
 
 function startTest() {
     common.timeStart = new Date();
-    var questionsAmountElement = document.getElementById("questions_amount");
-    var timePerQuestionElement = document.getElementById("time_per_question");
-    // questionsAmount = questionsAmountElement.options[questionsAmountElement.selectedIndex].value;
-    // common.timePerQuestion = timePerQuestionElement.options[timePerQuestionElement.selectedIndex].value;
     if (timePerQuestion == -1) {
         common.isMinusCount = false;
     } else {
@@ -131,7 +127,8 @@ function getNextQuestion() {
     }
     if (common.currantQuestion >= common.renderedQuestionsAmount) {
 
-        var questionObject = localL.shuffledData[common.currantQuestion];
+        var questionObject = common.incomeData[common.currantQuestion];
+        debugger;
         var question = questionObject.question;
         var answers = questionObject.answers.clone();
         renderQuestionAndAnswers(question, shuffle(answers), common.currantQuestion);
@@ -210,10 +207,10 @@ function renderResults() {
             resultItem.setAttribute("onclick", "getQuestion(" + i + ")");
             resultItem.setAttribute("id", "result_" + i);
             var suffix = "";
-            if (localL.shuffledData[i].question.length > 80) {
+            if (common.incomeData[i].question.length > 80) {
                 suffix = " ...";
             }
-            resultItem.innerHTML = i + 1 + " - " + localL.shuffledData[i].question.substring(0, 80) + suffix;
+            resultItem.innerHTML = i + 1 + " - " + common.incomeData[i].question.substring(0, 80) + suffix;
             resultsContainer.appendChild(resultItem);
         }
         common.isResultsRendered = true;
@@ -249,7 +246,7 @@ function evaluateResults() {
 function newAttempt() {
     var q = confirm("You really want to try again? All your results will be wipe!");
     if (q) {
-        history.go(0);
+        window.location.replace("/qa/start");
     }
 }
 

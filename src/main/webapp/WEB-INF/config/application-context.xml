@@ -16,7 +16,7 @@
      -->
 
     <bean id="qa_dao" class="dao.QaDaoFileDB">
-        <constructor-arg value="c:/work/questionAskerCSA/src/main/db/QuestionsDB.json"/>
+        <constructor-arg value="../../resources/db/QuestionsDB.json"/>
     </bean>
 
     <bean id="qa_service" class="service.QaServiceImpl">

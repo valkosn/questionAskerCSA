@@ -35,7 +35,6 @@ public class QaServiceImpl implements QaService {
 
     @Override
     public List<QA> findAllQuestionByCategory(String category) {
-
         return qaDAO.getQuestions().stream().filter(question ->
                 question.getCategory().equals(category)).collect(Collectors.toList());
     }
@@ -61,7 +60,7 @@ public class QaServiceImpl implements QaService {
     public List<QA> getRandomQuestions(int amount) {
         List<QA> shuffledList = new ArrayList<>(qaDAO.getQuestions());
         Collections.shuffle(shuffledList);
-        return shuffledList.subList(0, amount - 1);
+        return shuffledList.subList(0, amount);
     }
 
     @Override

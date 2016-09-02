@@ -22,6 +22,9 @@ public class StartController {
     @RequestMapping("/start")
     public String index(Model model) {
         model.addAttribute("maxQaAmount", qaService.getQuestionAmount());
+        model.addAttribute("data", "undefined");
+        model.addAttribute("questionsAmount", "undefined");
+        model.addAttribute("timePerQuestion", "undefined");
         return "index";
     }
 }

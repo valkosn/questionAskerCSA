@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>QuestionAsker</title>
-    <link href="../../resources/css/main.css" rel="stylesheet" type="text/css">
+    <link href="/qa/resources/css/main.css" rel="stylesheet" type="text/css">
     <script>
         data = ${data};
         questionsAmount = ${questionsAmount};
         timePerQuestion = ${timePerQuestion};
     </script>
-    <script src="../../resources/js/common.js" type="text/javascript"></script>
-    <script src="../../resources/js/${additionalJS}.js" type="text/javascript"></script>
+    <script src="/qa/resources/js/common.js" type="text/javascript"></script>
+    <%
+        Object additionalJS = request.getAttribute("additionalJS");
+        if (!(additionalJS == null) && !additionalJS.toString().isEmpty()) {
+    %>
+    <script src="/qa/resources/js/${additionalJS}.js" type="text/javascript"></script>
+    <%
+        }
+    %>
 </head>
 <header>
     <div class="header_message">
