@@ -2,12 +2,12 @@
  * Created by valko on 30-Aug-16.
  */
 
-var localL = {
-
-    shuffledData: shuffle(common.incomeData)
-
-
-};
+// var localL = {
+//
+//     shuffledData: shuffle(common.incomeData)
+//
+//
+// };
 
 function shuffle(a) {
     var j, x, i;
@@ -41,5 +41,5 @@ function checkQuestion(questionNumber) {
 }
 
 function getCorrectAnswer(questionNumber) {
-    return localL.shuffledData[questionNumber].answers[0].hashCode();
+    return common.incomeData[questionNumber].answers[0].hashCode();
 }

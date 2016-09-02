@@ -11,7 +11,7 @@ var common = {
     timeStart: undefined,
     timeToEnd: undefined,
     diffTime: undefined,
-    isMinusCount: true,
+    isMinusCount: true
 };
 
 Element.prototype.hide = function () {
@@ -75,16 +75,6 @@ String.prototype.hashCode = function () {
     return hash;
 };
 
-function addMaxValueToQuestionAmount() {
-    var container = document.getElementById("questions_amount");
-    if (container.length <= 5) {
-        var elem = document.createElement("option");
-        elem.setAttribute("value", common.incomeData.length.toString());
-        elem.innerHTML = common.incomeData.length.toString() + " questions";
-        container.appendChild(elem);
-    }
-}
-
 function checkForLastQuestion() {
     if (common.currantQuestion == questionsAmount - 1) {
         var currantHolder = document.getElementById("question_holder_" + common.currantQuestion);
@@ -98,10 +88,6 @@ function checkForLastQuestion() {
 
 function hideCurrantQuestion() {
     document.getElementById("question_holder_" + common.currantQuestion).hide();
-}
-
-function getStartData() {
-
 }
 
 function startTest() {
@@ -128,7 +114,6 @@ function getNextQuestion() {
     if (common.currantQuestion >= common.renderedQuestionsAmount) {
 
         var questionObject = common.incomeData[common.currantQuestion];
-        debugger;
         var question = questionObject.question;
         var answers = questionObject.answers.clone();
         renderQuestionAndAnswers(question, shuffle(answers), common.currantQuestion);
