@@ -75,6 +75,17 @@ String.prototype.hashCode = function () {
     return hash;
 };
 
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
+
 function checkForLastQuestion() {
     if (common.currantQuestion == questionsAmount - 1) {
         var currantHolder = document.getElementById("question_holder_" + common.currantQuestion);
@@ -148,6 +159,7 @@ function renderQuestionAndAnswers(question, answers, questionNumber) {
     questionTitle.innerHTML = questionTitle.innerHTML.toString().replace("{{qn/qa}}", navPoint);
 
     var questionBox = questionContainer.findChildById("question_");
+    questionBox.id = questionBox.id + questionNumber;
     questionBox.innerHTML = question.toString();
 
     var answerContainer = questionContainer.findChildById("answer_container_");
@@ -226,6 +238,27 @@ function evaluateResults() {
         + "You answer right for " + truAnswersAmount + " question(s) from " + questionsAmount
         + resultTime;
     document.getElementById("result_message").innerHTML = resultString;
+}
+
+
+function checkQuestion(questionNumber) {
+    var radios = document.getElementsByName("answer_" + questionNumber);
+    var userChoice;
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].type === 'radio' && radios[i].checked) {
+            userChoice = radios[i].value;
+        }
+        var radiosText = document.getElementById("answer_text_" + questionNumber + "_" + i);
+        if (radios[i].value == getCorrectAnswer(questionNumber)) {
+            radiosText.setAttribute("style", "color: green;");
+        }
+        radios[i].disabled = "true";
+    }
+    if (userChoice != null) {
+        return getCorrectAnswer(questionNumber) == userChoice;
+    } else {
+        return false;
+    }
 }
 
 function newAttempt() {

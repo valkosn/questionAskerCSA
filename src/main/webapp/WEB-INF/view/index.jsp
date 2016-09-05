@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>QuestionAsker</title>
     <link href="/qa/resources/css/main.css" rel="stylesheet" type="text/css">
+    <script src="/qa/resources/lib/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script>
         data = ${data};
         questionsAmount = ${questionsAmount};

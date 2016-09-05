@@ -26,7 +26,7 @@ public class TestController {
     }
 
     @RequestMapping("/test")
-    public String helloWorld(Model model, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+    public String test(Model model, HttpServletRequest httpServletRequest) {
         String testType = httpServletRequest.getParameter("testType");
         int questionsAmount = Integer.parseInt(httpServletRequest.getParameter("questionsAmount"));
         int timePerQuestion = Integer.parseInt(httpServletRequest.getParameter("timePerQuestion"));
