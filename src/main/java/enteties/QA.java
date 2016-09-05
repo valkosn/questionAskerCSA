@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Valko Serhii on 29-Aug-16.
  */
 public final class QA {
-    @JsonIgnore
+    @JsonProperty("id")
     private int id;
 
     @JsonIgnore

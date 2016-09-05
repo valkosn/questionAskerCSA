@@ -41,10 +41,10 @@
                 <option value="offline">Offline</option>
             </select>
             <select id="questions_amount" name="questionsAmount" title="Amount of questions">
-                <option value="5">5 questions</option>
+                <option value="5" selected="selected">5 questions</option>
                 <option value="10">10 questions</option>
                 <option value="25">25 questions</option>
-                <option value="50" selected="selected">50 questions</option>
+                <option value="50">50 questions</option>
                 <option value="100">100 questions</option>
                 <option value="${maxQaAmount}">${maxQaAmount} questions</option>
             </select>

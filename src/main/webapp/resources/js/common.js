@@ -242,23 +242,24 @@ function evaluateResults() {
 
 
 function checkQuestion(questionNumber) {
+    var rightAnswer = false;
+    var correctAnswer = getCorrectAnswer(questionNumber);
     var radios = document.getElementsByName("answer_" + questionNumber);
     var userChoice;
     for (var i = 0; i < radios.length; i++) {
         if (radios[i].type === 'radio' && radios[i].checked) {
             userChoice = radios[i].value;
+            $("#answer_text_" + questionNumber + "_" + i).css("color", "red");
         }
-        var radiosText = document.getElementById("answer_text_" + questionNumber + "_" + i);
-        if (radios[i].value == getCorrectAnswer(questionNumber)) {
-            radiosText.setAttribute("style", "color: green;");
+        if (radios[i].value == correctAnswer) {
+            $("#answer_text_" + questionNumber + "_" + i).css("color", "green");
+        }
+        if(userChoice == correctAnswer){
+            rightAnswer = true;
         }
         radios[i].disabled = "true";
     }
-    if (userChoice != null) {
-        return getCorrectAnswer(questionNumber) == userChoice;
-    } else {
-        return false;
-    }
+    return rightAnswer;
 }
 
 function newAttempt() {
@@ -277,6 +278,11 @@ function time() {
     }
     if (common.diffTime < 0) {
         common.isEvaluated = true;
+        while (common.currantQuestion < questionsAmount - 1) {
+            getNextQuestion();
+        }
+        renderResults();
+        evaluateResults();
     }
     if (!common.isEvaluated) {
         var tSec = common.diffTime % 60;
@@ -293,11 +299,5 @@ function time() {
             + (tMin != 0 ? tMin + " min " : "")
             + (tSec != 0 ? tSec + " sec" : "");
         window.setTimeout("time()", 1000);
-    } else {
-        while (common.currantQuestion < questionsAmount - 1) {
-            getNextQuestion();
-        }
-        renderResults();
-        evaluateResults();
     }
 }

@@ -26,9 +26,10 @@ public class EvaluateController {
     @RequestMapping(value = "/evaluate", method = RequestMethod.POST)
     public HttpServletResponse evaluate (HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
 
-        String question = httpServletRequest.getParameter("data");
-        QA byQuestion = qaService.findByQuestion(question);
+        int questionID = Integer.parseInt(httpServletRequest.getParameter("data"));
+        QA byQuestion = qaService.find(questionID);
         String correctAnswer = byQuestion.getAnswers().get(0);
+        httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.getWriter().write(correctAnswer);
         httpServletResponse.getWriter().flush();
         httpServletResponse.getWriter().close();

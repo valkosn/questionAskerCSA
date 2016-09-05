@@ -3,9 +3,19 @@
  */
 
 function getCorrectAnswer(questionNumber) {
-    return $.ajax("./evaluate", {
+    var result = null;
+    $.ajax({
+        url: "/qa/evaluate",
         type: "POST",
-        data: {'data' : $("#question_" + questionNumber).text()},
-        dataType: "JSON"
+        async: false,
+        data: {'data': data[questionNumber].id},
+        dataType: "text",
+        success: function (resData) {
+            result = resData.hashCode();
+        },
+        error: function () {
+            debugger;
+        }
     });
+    return result;
 }
