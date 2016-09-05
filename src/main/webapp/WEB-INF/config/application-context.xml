@@ -15,8 +15,9 @@
         <mvc:resources mapping="/resources/**" location="/resources/themeGreen" />
      -->
 
-    <bean id="qa_dao" class="dao.QaDaoFileDB">
+    <bean id="qa_dao" class="dao.QaDaoFileDB" init-method="init">
         <constructor-arg value="../../resources/db/QuestionsDB.json"/>
+
     </bean>
 
     <bean id="qa_service" class="service.QaServiceImpl">

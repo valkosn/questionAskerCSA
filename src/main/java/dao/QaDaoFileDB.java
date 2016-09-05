@@ -20,7 +20,6 @@ public class QaDaoFileDB implements QaDao {
 
     public QaDaoFileDB(java.lang.String filePath) {
         this.filePath = filePath;
-        init();
     }
 
     public List<QA> getQuestions() {
