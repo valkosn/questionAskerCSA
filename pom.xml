@@ -10,7 +10,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <!-- Generic properties -->
+        <!-- General properties -->
         <java.version>1.8</java.version>
 
         <!-- Web -->
@@ -23,6 +23,9 @@
 
         <!-- Jackson-->
         <jackson.version>2.8.1</jackson.version>
+
+        <!-- SQL DB-->
+        <postgresql.jdbc.version>9.1-901.jdbc4</postgresql.jdbc.version>
     </properties>
 
     <dependencyManagement>
@@ -115,6 +118,13 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20160212</version>
+        </dependency>
+
+        <!-- SQL DB -->
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.jdbc.version}</version>
         </dependency>
 
     </dependencies>

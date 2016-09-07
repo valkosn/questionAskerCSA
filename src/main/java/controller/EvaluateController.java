@@ -1,6 +1,5 @@
 package controller;
 
-import enteties.QA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +26,7 @@ public class EvaluateController {
     public HttpServletResponse evaluate (HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
 
         int questionID = Integer.parseInt(httpServletRequest.getParameter("data"));
-        QA byQuestion = qaService.find(questionID);
-        String correctAnswer = byQuestion.getAnswers().get(0);
+        String correctAnswer = qaService.getCorrectAnswer(questionID);
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.getWriter().write(correctAnswer);
         httpServletResponse.getWriter().flush();

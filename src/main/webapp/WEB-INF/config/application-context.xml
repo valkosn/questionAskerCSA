@@ -15,9 +15,13 @@
         <mvc:resources mapping="/resources/**" location="/resources/themeGreen" />
      -->
 
-    <bean id="qa_dao" class="dao.QaDaoFileDB" init-method="init">
-        <constructor-arg value="../../resources/db/QuestionsDB.json"/>
+    <!--<bean id="qa_dao" class="dao.QaDaoFileDB" init-method="init">-->
+        <!--<constructor-arg value="../../resources/db/QuestionsDB.json"/>-->
+    <!--</bean>-->
 
+    <bean id="qa_dao" class="dao.QaDaoJdbc" init-method="init">
+        <constructor-arg value="../../resources/db/QuestionsDB.json"/>
+        <property name="settings" ref="settings"/>
     </bean>
 
     <bean id="qa_service" class="service.QaServiceImpl">
@@ -30,6 +34,10 @@
 
     <bean id="console_renderer" class="ConsoleRenderer">
         <property name="qaService" ref="qa_service"/>
+    </bean>
+
+    <bean id="settings" class="service.Settings">
+        <constructor-arg value="asker.properties"/>
     </bean>
 
     <!--<bean id="start_controller" class="controller.StartController">-->

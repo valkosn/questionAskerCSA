@@ -21,12 +21,12 @@ public class QaServiceImpl implements QaService {
 
     @Override
     public QA find(int id) {
-        return qaDAO.getQuestions().get(id);
+        return qaDAO.getAllQuestions().get(id);
     }
 
     @Override
     public QA findByQuestion(String questionValue) {
-        for (QA question : qaDAO.getQuestions()) {
+        for (QA question : qaDAO.getAllQuestions()) {
             if (question.getQuestion().equals(questionValue))
                 return question;
         }
@@ -35,7 +35,7 @@ public class QaServiceImpl implements QaService {
 
     @Override
     public List<QA> findAllQuestionByCategory(String category) {
-        return qaDAO.getQuestions().stream().filter(question ->
+        return qaDAO.getAllQuestions().stream().filter(question ->
                 question.getCategory().equals(category)).collect(Collectors.toList());
     }
 
@@ -53,19 +53,22 @@ public class QaServiceImpl implements QaService {
 
     @Override
     public List<QA> getAllQuestions() {
-        return qaDAO.getQuestions();
+        return qaDAO.getAllQuestions();
     }
 
     @Override
     public List<QA> getRandomQuestions(int amount) {
-        List<QA> shuffledList = new ArrayList<>(qaDAO.getQuestions());
-        Collections.shuffle(shuffledList);
-        return shuffledList.subList(0, amount);
-    }
+        return qaDAO.getRandomQuestions(amount);
+}
 
     @Override
     public int getQuestionAmount(){
-        return qaDAO.getQuestions().size();
+        return getAllQuestions().size();
+    }
+
+    @Override
+    public String getCorrectAnswer(int id) {
+        return qaDAO.getCorrectAnswer(id);
     }
 
     public void setQaDAO(QaDao qaDAO) {

@@ -12,7 +12,8 @@
 
     <!-- context:component-scan This tag will scan @Component, @Repository, @Service, @Controller
          and also resolves @Autowired and @Qualifier -->
-    <context:component-scan base-package="controller" />
+    <context:component-scan base-package="controller"/>
+    <context:component-scan base-package="dao"/>
 
     <mvc:annotation-driven/>
 

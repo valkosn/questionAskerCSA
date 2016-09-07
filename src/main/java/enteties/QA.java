@@ -13,10 +13,10 @@ public final class QA {
     private int id;
 
     @JsonIgnore
-    private java.lang.String category;
+    private String category;
 
     @JsonProperty("question")
-    private java.lang.String question;
+    private String question;
 
     @JsonProperty("answers")
     private List<String> answers;
@@ -24,13 +24,13 @@ public final class QA {
     public QA() {
     }
 
-    public QA(int id, java.lang.String question, List<String> answers) {
+    public QA(int id, String question, List<String> answers) {
         this.id = id;
         this.question = question;
         this.answers = answers;
     }
 
-    public QA(int id, java.lang.String question, List<String> answers, java.lang.String category) {
+    public QA(int id, String question, List<String> answers, String category) {
         this.id = id;
         this.question = question;
         this.answers = answers;
@@ -41,11 +41,11 @@ public final class QA {
         return id;
     }
 
-    public java.lang.String getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public java.lang.String getQuestion() {
+    public String getQuestion() {
         return question;
     }
 
