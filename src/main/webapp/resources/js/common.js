@@ -301,3 +301,11 @@ function time() {
         window.setTimeout("time()", 1000);
     }
 }
+
+function configAjax() {
+    $.ajax({
+        url: "/qa/config",
+        type: "GET",
+        async: false,
+    });
+}

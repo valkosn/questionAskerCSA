@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>QuestionAsker</title>
     <link href="/qa/resources/css/main.css" rel="stylesheet" type="text/css">
-    <link href="/qa/resources/css/chosen.css" rel="stylesheet" type="text/css">
+    <link href="/qa/resources/lib/chosen_v1.6.2/chosen.css" rel="stylesheet" type="text/css">
     <script src="/qa/resources/lib/jquery-3.1.0.min.js" type="text/javascript"></script>
-    <script src="/qa/resources/lib/chosen.jquery.js" type="text/javascript"></script>
+    <script src="/qa/resources/lib/chosen_v1.6.2/chosen.jquery.js" type="text/javascript"></script>
     <script>
         data = ${data};
         questionsAmount = ${questionsAmount};
@@ -38,6 +38,7 @@
 
         <div class="control_container">
             <input id="start" type="submit" value="Start">
+            <input id="config" type="button" value="Config" onclick="location.href='${pageContext.request.contextPath}/config'">
             <select id="test_type" name="testType" class="single-select" title="Test type">
                 <option value="normal" selected="selected">Normal</option>
                 <option value="offline">Offline</option>
@@ -75,7 +76,7 @@
             });
 
             $(".single-select").chosen({
-                width: "15%",
+                width: "10%",
                 disable_search: "true"
             });
         });
