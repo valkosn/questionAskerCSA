@@ -19,7 +19,7 @@
         <!--<constructor-arg value="../../resources/db/QuestionsDB.json"/>-->
     <!--</bean>-->
 
-    <bean id="qa_dao" class="dao.QaDaoJdbc" init-method="init">
+    <bean id="qa_dao" class="dao.QaDaoJdbc" init-method="init" >
         <constructor-arg value="../../resources/db/QuestionsDB.json"/>
         <property name="settings" ref="settings"/>
     </bean>
@@ -37,7 +37,7 @@
     </bean>
 
     <bean id="settings" class="service.Settings">
-        <constructor-arg value="asker.properties"/>
+        <constructor-arg value="askerDB.properties"/>
     </bean>
 
     <!--<bean id="start_controller" class="controller.StartController">-->

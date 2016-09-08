@@ -26,10 +26,15 @@
 
         <!-- SQL DB-->
         <postgresql.jdbc.version>9.1-901.jdbc4</postgresql.jdbc.version>
+
+        <!-- Other util dependencies-->
+        <json.version>20160212</json.version>
+        <log4j.version>1.2.17</log4j.version>
+
     </properties>
 
     <dependencyManagement>
-        <!--all spring dependencies -->
+        <!-- All spring dependencies -->
         <dependencies>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -113,18 +118,24 @@
             <version>${jackson.version}</version>
         </dependency>
 
-        <!-- Other util dependencies -->
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20160212</version>
-        </dependency>
-
         <!-- SQL DB -->
         <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.jdbc.version}</version>
+        </dependency>
+
+        <!-- Other util dependencies -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${json.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
 
     </dependencies>

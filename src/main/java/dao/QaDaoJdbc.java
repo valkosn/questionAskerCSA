@@ -1,6 +1,7 @@
 package dao;
 
 import enteties.QA;
+import org.apache.log4j.Logger;
 import service.Settings;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import utils.JsonFileConverter;
@@ -13,8 +14,10 @@ import java.util.List;
  */
 public class QaDaoJdbc implements QaDao {
 
+    private final Logger LOG = Logger.getLogger(QaDaoJdbc.class);
     private String filePath;
-    private Settings settings = new Settings("asker.properties");
+    // FIXME: 08-Sep-16 Fix Spring instantiation issue in application-context.xml
+    private Settings settings = new Settings("askerDB.properties");
     private Connection connection;
 
     public void setSettings(Settings settings) {
@@ -35,7 +38,8 @@ public class QaDaoJdbc implements QaDao {
     }
 
     public void init() {
-
+        long startTime = System.currentTimeMillis();
+        initDB();
         try (final PreparedStatement questionStatement = this.connection.prepareStatement("INSERT INTO questions (question_value) VALUES (?)");
              final PreparedStatement answersStatement = this.connection.prepareStatement("INSERT INTO answers (question_id, answer_value, right_answer) VALUES (?, ?, ?);")) {
             List<QA> qaList = new JsonFileConverter().toJavaObject(filePath);
@@ -55,7 +59,19 @@ public class QaDaoJdbc implements QaDao {
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
+        LOG.info("Data base initialization time is " + (System.currentTimeMillis() - startTime) + " millis");
 
+    }
+
+    private void initDB(){
+        try(Statement statement = this.connection.createStatement()){
+            statement.executeUpdate("DROP TABLE IF EXISTS answers");
+            statement.executeUpdate("DROP TABLE IF EXISTS questions");
+            statement.execute("CREATE TABLE IF NOT EXISTS questions (uid SERIAL PRIMARY KEY, question_value VARCHAR(400))");
+            statement.execute("CREATE TABLE IF NOT EXISTS answers (uid SERIAL PRIMARY KEY, question_id INT NOT NULL REFERENCES questions (uid), answer_value VARCHAR(400), right_answer BOOL)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
