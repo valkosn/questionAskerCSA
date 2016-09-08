@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>QuestionAsker</title>
     <link href="/qa/resources/css/main.css" rel="stylesheet" type="text/css">
+    <link href="/qa/resources/css/chosen.css" rel="stylesheet" type="text/css">
     <script src="/qa/resources/lib/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="/qa/resources/lib/chosen.jquery.js" type="text/javascript"></script>
     <script>
         data = ${data};
         questionsAmount = ${questionsAmount};
@@ -36,11 +38,16 @@
 
         <div class="control_container">
             <input id="start" type="submit" value="Start">
-            <select id="test_type" name="testType" title="Test type">
+            <select id="test_type" name="testType" class="single-select" title="Test type">
                 <option value="normal" selected="selected">Normal</option>
                 <option value="offline">Offline</option>
             </select>
-            <select id="questions_amount" name="questionsAmount" title="Amount of questions">
+            <select id="categories" name="categories" class="category-select" title="Categories" data-placeholder="Choose a category..." multiple>
+                <option value="10">10 cat</option>
+                <option value="25">25 cat</option>
+                <option value="50">50 cat</option>
+            </select>
+            <select id="questions_amount" name="questionsAmount" class="single-select" title="Amount of questions">
                 <option value="5" selected="selected">5 questions</option>
                 <option value="10">10 questions</option>
                 <option value="25">25 questions</option>
@@ -48,7 +55,7 @@
                 <option value="100">100 questions</option>
                 <option value="${maxQaAmount}">${maxQaAmount} questions</option>
             </select>
-            <select id="time_per_question" name="timePerQuestion" title="Time per question">
+            <select id="time_per_question" name="timePerQuestion" class="single-select" title="Time per question">
                 <option value="1">1 sec/question</option>
                 <option value="30">30 sec/question</option>
                 <option value="60">1 min/question</option>
@@ -59,6 +66,21 @@
             </select>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(function() {
+            $(".category-select").chosen({
+                max_selected_options: "5",
+                width: "25%"
+            });
+
+            $(".single-select").chosen({
+                width: "15%",
+                disable_search: "true"
+            });
+        });
+
+    </script>
 </form>
 <div id="test_answers"></div>
 
