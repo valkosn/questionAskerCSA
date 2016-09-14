@@ -1,5 +1,6 @@
 package utils;
 
+import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import enteties.QA;
 import org.json.JSONArray;
@@ -15,22 +16,24 @@ import java.util.List;
  */
 public class JsonFileConverter {
 
-    public static void toJSONFile(List<QA> qaList, String filePath) throws IOException {
+    public void toJSONFile(List<QA> qaList, String filePath) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(new File(filePath), qaList);
     }
 
-    public static String toJSONString(List<QA> qaList) throws IOException {
+    public String toJSONString(List<QA> qaList) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(qaList);
     }
 
     @SuppressWarnings("unchecked")
-    public static List<QA> toJavaObjectViaJakson(String filePath) throws IOException {
+    public List<QA> toJavaObjectViaJackson(String filePath) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(new File(filePath), List.class);
+        MappingIterator<QA> objectMappingIterator = mapper.readerFor(QA.class).readValues(this.getClass().getClassLoader().getResourceAsStream(filePath));
+        return objectMappingIterator.readAll();
     }
 
+    @Deprecated
     public List<QA> toJavaObject(String filePath){
         List<QA> questions = new ArrayList<>();
         JSONTokener jsonTokener = null;

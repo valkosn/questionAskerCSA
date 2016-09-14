@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import service.CategoryService;
 import service.QaService;
 
 /**
@@ -13,6 +14,12 @@ import service.QaService;
 public class StartController {
 
     private QaService qaService;
+    private CategoryService categoryService;
+
+    @Autowired
+    public void setCategoryService(CategoryService categoryService){
+        this.categoryService = categoryService;
+    }
 
     @Autowired
     public void setQaService(QaService qaService) {
@@ -25,6 +32,7 @@ public class StartController {
         model.addAttribute("data", "undefined");
         model.addAttribute("questionsAmount", "undefined");
         model.addAttribute("timePerQuestion", "undefined");
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "index";
     }
 }

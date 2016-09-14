@@ -21,7 +21,7 @@ public interface QaService {
 
     List<QA> getAllQuestions();
 
-    List<QA> getRandomQuestions(int amount);
+    List<QA> getRandomQuestions(int amount, String[] categories);
 
     int getQuestionAmount();
 

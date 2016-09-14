@@ -2,6 +2,7 @@ package dao;
 
 import enteties.QA;
 import utils.JsonFileConverter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,7 +27,7 @@ public class QaDaoFileDB implements QaDao {
     }
 
     @Override
-    public List<QA> getRandomQuestions(int amount) {
+    public List<QA> getRandomQuestions(int amount, String[] categories) {
         List<QA> shuffledList = new ArrayList<>(questions);
         Collections.shuffle(shuffledList);
         return shuffledList.subList(0, amount);
@@ -42,7 +43,12 @@ public class QaDaoFileDB implements QaDao {
         return questions.get(id).getAnswers().get(0);
     }
 
-    private void init() {
-        this.questions = new JsonFileConverter().toJavaObject(filePath);
+    @Override
+    public int getQuestionAmount() {
+        return questions.size();
+    }
+
+    private void init() throws IOException {
+        this.questions = new JsonFileConverter().toJavaObjectViaJackson(filePath);
     }
 }

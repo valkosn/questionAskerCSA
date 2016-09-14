@@ -30,6 +30,7 @@ public class TestController {
         String testType = httpServletRequest.getParameter("testType");
         int questionsAmount = Integer.parseInt(httpServletRequest.getParameter("questionsAmount"));
         int timePerQuestion = Integer.parseInt(httpServletRequest.getParameter("timePerQuestion"));
+        String[] categories = httpServletRequest.getParameterValues("categories");
         model.addAttribute("questionsAmount", questionsAmount);
         model.addAttribute("timePerQuestion" , timePerQuestion);
         switch (testType) {
@@ -44,7 +45,7 @@ public class TestController {
         }
         model.addAttribute("scriptToRun" , "startTest()");
         try {
-            model.addAttribute("data", JsonFileConverter.toJSONString(qaService.getRandomQuestions(questionsAmount)));
+            model.addAttribute("data", new JsonFileConverter().toJSONString(qaService.getRandomQuestions(questionsAmount, categories)));
 
         } catch (IOException e) {
             e.printStackTrace();

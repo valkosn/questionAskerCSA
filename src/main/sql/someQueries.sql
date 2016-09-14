@@ -6,7 +6,9 @@ SELECT
   question_value,
   answer_value
 FROM questions
-  JOIN answers ON questions.uid = answers.question_id ORDER BY RANDOM() LIMIT 5;
+  JOIN answers ON questions.uid = answers.question_id
+ORDER BY RANDOM()
+LIMIT 5;
 
 SELECT answers.value
 FROM answers
@@ -25,16 +27,75 @@ SELECT
   question_value,
   answer_value
 FROM questions
-  INNER JOIN answers ON questions.uid = answers.question_id ORDER BY RANDOM();
+  INNER JOIN answers ON questions.uid = answers.question_id
+ORDER BY RANDOM();
 
 SELECT
   question_value,
   answer_value
 FROM questions
-  INNER JOIN answers ON questions.uid = answers.question_id ORDER BY questions.uid, RANDOM() LIMIT 5;
+  INNER JOIN answers ON questions.uid = answers.question_id
+ORDER BY questions.uid, RANDOM()
+LIMIT 5;
 
-SELECT questions.uid, questions.question_value, answer_value FROM questions INNER JOIN answers ON questions.uid = answers.question_id;
+SELECT
+  questions.uid,
+  questions.question_value,
+  answer_value
+FROM questions
+  INNER JOIN answers ON questions.uid = answers.question_id;
 
-SELECT answer_value FROM answers WHERE questions_uid_seq = '114';
+SELECT answer_value
+FROM answers
+WHERE questions_uid_seq = '114';
 
-SELECT answer_value FROM answers WHERE question_id = 1 AND right_answer = TRUE;
+SELECT answer_value
+FROM answers
+WHERE question_id = 1 AND right_answer = TRUE;
+
+SELECT
+  q.uid,
+  q.question_value,
+  a.uid,
+  a.answer_value
+FROM questions q
+  JOIN answers a ON q.uid = a.question_id AND q.uid IN (SELECT q1.uid
+                                                        FROM questions q1
+                                                        ORDER BY RANDOM()
+                                                        LIMIT 5);
+
+SELECT
+  q.uid,
+  q.question_value,
+  a.answer_value
+FROM questions q
+  JOIN answers a ON q.uid = a.question_id AND q.uid IN (SELECT q1.uid
+                                                        FROM questions q1
+                                                        WHERE q1.category_id = 2
+                                                        ORDER BY RANDOM()
+                                                        LIMIT 5);
+
+
+WITH s AS (
+    SELECT
+      uid,
+      category_value
+    FROM categories
+    WHERE category_value = 'kat2'
+), i AS (
+  INSERT INTO categories (category_value)
+    SELECT
+      'kat2'
+    WHERE NOT exists(SELECT 1
+                     FROM s)
+  RETURNING uid, category_value
+)
+SELECT
+  uid,
+  category_value
+FROM i
+UNION ALL
+SELECT
+  uid,
+  category_value
+FROM s

@@ -1,11 +1,11 @@
 package dao;
 
-import java.util.Set;
+import java.util.Map;
 
 /**
  * Created by Valko Serhii on 29-Aug-16.
  */
 public interface CategoryDao {
 
-    Set<String> getCategories();
+    Map<Integer, String> getAllCategories();
 }

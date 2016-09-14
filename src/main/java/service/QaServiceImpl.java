@@ -1,11 +1,11 @@
 package service;
 
-import dao.CategoryDao;
 import dao.QaDao;
 import enteties.QA;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.*;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 /**
@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 public class QaServiceImpl implements QaService {
 
     private QaDao qaDAO;
-    private CategoryDao categoryDAO;
 
     public QaServiceImpl() {
     }
@@ -57,13 +56,13 @@ public class QaServiceImpl implements QaService {
     }
 
     @Override
-    public List<QA> getRandomQuestions(int amount) {
-        return qaDAO.getRandomQuestions(amount);
+    public List<QA> getRandomQuestions(int amount, String[] categories) {
+        return qaDAO.getRandomQuestions(amount, categories);
 }
 
     @Override
     public int getQuestionAmount(){
-        return getAllQuestions().size();
+        return qaDAO.getQuestionAmount();
     }
 
     @Override
@@ -75,7 +74,4 @@ public class QaServiceImpl implements QaService {
         this.qaDAO = qaDAO;
     }
 
-    public void setCategoryDAO(CategoryDao categoryDAO) {
-        this.categoryDAO = categoryDAO;
-    }
 }

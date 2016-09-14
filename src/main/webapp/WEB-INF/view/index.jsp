@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -38,15 +39,17 @@
 
         <div class="control_container">
             <input id="start" type="submit" value="Start">
-            <input id="config" type="button" value="Config" onclick="location.href='${pageContext.request.contextPath}/config'">
+            <input id="config" type="button" value="Config"
+                   onclick="location.href='${pageContext.request.contextPath}/config'">
             <select id="test_type" name="testType" class="single-select" title="Test type">
                 <option value="normal" selected="selected">Normal</option>
                 <option value="offline">Offline</option>
             </select>
-            <select id="categories" name="categories" class="category-select" title="Categories" data-placeholder="Choose a category..." multiple>
-                <option value="10">10 cat</option>
-                <option value="25">25 cat</option>
-                <option value="50">50 cat</option>
+            <select id="categories" name="categories" class="category-select" title="Categories"
+                    data-placeholder="Choose a category..." multiple>
+                <c:forEach items="${categories}" var="cat">
+                    <option value="${cat.key}">${cat.value}</option>
+                </c:forEach>
             </select>
             <select id="questions_amount" name="questionsAmount" class="single-select" title="Amount of questions">
                 <option value="5" selected="selected">5 questions</option>
@@ -69,7 +72,7 @@
     </div>
 
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             $(".category-select").chosen({
                 max_selected_options: "5",
                 width: "25%"

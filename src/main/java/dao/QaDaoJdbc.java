@@ -2,9 +2,10 @@ package dao;
 
 import enteties.QA;
 import org.apache.log4j.Logger;
-import service.Settings;
+import service.ISettings;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import utils.JsonFileConverter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +17,9 @@ public class QaDaoJdbc implements QaDao {
 
     private final Logger LOG = Logger.getLogger(QaDaoJdbc.class);
     private String filePath;
-    // FIXME: 08-Sep-16 Fix Spring instantiation issue in application-context.xml
-    private Settings settings = new Settings("askerDB.properties");
     private Connection connection;
 
-    public void setSettings(Settings settings) {
-        this.settings = settings;
-    }
-
-    public QaDaoJdbc(String filePath) throws SQLException {
+    public QaDaoJdbc(String filePath, ISettings settings) throws SQLException {
         this.filePath = filePath;
         try {
             Class.forName(settings.getValue("jdbc.driver_class"));
@@ -40,11 +35,18 @@ public class QaDaoJdbc implements QaDao {
     public void init() {
         long startTime = System.currentTimeMillis();
         initDB();
-        try (final PreparedStatement questionStatement = this.connection.prepareStatement("INSERT INTO questions (question_value) VALUES (?)");
-             final PreparedStatement answersStatement = this.connection.prepareStatement("INSERT INTO answers (question_id, answer_value, right_answer) VALUES (?, ?, ?);")) {
-            List<QA> qaList = new JsonFileConverter().toJavaObject(filePath);
+        try (final PreparedStatement questionStatement = this.connection.prepareStatement("INSERT INTO questions (question_value, category_id) VALUES (?, ?)");
+             final PreparedStatement answersStatement = this.connection.prepareStatement("INSERT INTO answers (question_id, answer_value, right_answer) VALUES (?, ?, ?)");
+            final PreparedStatement categoryStatement = this.connection.prepareStatement("WITH s AS (SELECT uid, category_value FROM categories WHERE category_value = ?), i AS (INSERT INTO categories (category_value) SELECT ? WHERE NOT exists(SELECT 1 FROM s) RETURNING uid, category_value) SELECT uid, category_value FROM i UNION ALL SELECT uid, category_value FROM s")) {
+            List<QA> qaList = new JsonFileConverter().toJavaObjectViaJackson(filePath);
             for (int i = 0; i < qaList.size(); i++) {
+                categoryStatement.setString(1, qaList.get(i).getCategory());
+                categoryStatement.setString(2, qaList.get(i).getCategory());
+                ResultSet categoryResultSet = categoryStatement.executeQuery();
+                categoryResultSet.next();
+                int categoryUid = categoryResultSet.getInt("uid");
                 questionStatement.setString(1, qaList.get(i).getQuestion());
+                questionStatement.setInt(2, categoryUid);
                 questionStatement.execute();
                 questionStatement.clearParameters();
                 List<String> answersList = qaList.get(i).getAnswers();
@@ -58,16 +60,20 @@ public class QaDaoJdbc implements QaDao {
             }
         } catch (SQLException e1) {
             e1.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         LOG.info("Data base initialization time is " + (System.currentTimeMillis() - startTime) + " millis");
 
     }
 
-    private void initDB(){
-        try(Statement statement = this.connection.createStatement()){
+    private void initDB() {
+        try (Statement statement = this.connection.createStatement()) {
             statement.executeUpdate("DROP TABLE IF EXISTS answers");
             statement.executeUpdate("DROP TABLE IF EXISTS questions");
-            statement.execute("CREATE TABLE IF NOT EXISTS questions (uid SERIAL PRIMARY KEY, question_value VARCHAR(400))");
+            statement.executeUpdate("DROP TABLE IF EXISTS categories");
+            statement.execute("CREATE TABLE IF NOT EXISTS categories (uid SERIAL PRIMARY KEY, category_value VARCHAR(50))");
+            statement.execute("CREATE TABLE IF NOT EXISTS questions (uid SERIAL PRIMARY KEY, category_id INT REFERENCES categories(uid), question_value VARCHAR(400))");
             statement.execute("CREATE TABLE IF NOT EXISTS answers (uid SERIAL PRIMARY KEY, question_id INT NOT NULL REFERENCES questions (uid), answer_value VARCHAR(400), right_answer BOOL)");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -75,24 +81,26 @@ public class QaDaoJdbc implements QaDao {
     }
 
     @Override
-    public List<QA> getRandomQuestions(int amount) {
+    public List<QA> getRandomQuestions(int amount, String[] categories) {
         List<QA> qaList = new ArrayList<>();
-        try (final Statement questionStatement = this.connection.createStatement();
-             final ResultSet questionResultSet = questionStatement.executeQuery("SELECT questions.uid, questions.question_value FROM questions ORDER BY RANDOM() LIMIT " + amount)) {
-            while (questionResultSet.next()) {
-                List<String> answersList = new ArrayList<>();
-                int questionUID = questionResultSet.getInt("uid");
-                try (final PreparedStatement answersStatement = this.connection.prepareStatement("SELECT answer_value FROM answers WHERE question_id = ?")) {
-                    answersStatement.setInt(1, questionUID);
-                    ResultSet answersResultSet = answersStatement.executeQuery();
-                    while (answersResultSet.next()) {
-                        answersList.add(answersResultSet.getString("answer_value"));
-                    }
-                    answersResultSet.close();
+        String categoryQueryPrefix = "q1.category_id = ";
+        StringBuilder categoryQuery = new StringBuilder();
+        if(categories.length == 0){
+            categoryQuery.append(categoryQueryPrefix).append("*");
+        } else {
+
+            for (int i = 0; i < categories.length; i++) {
+                categoryQuery.append(categoryQueryPrefix).append(categories[i]);
+                if(i < categories.length - 1){
+                    categoryQuery.append(" OR ");
                 }
 
-                qaList.add(new QA(questionUID, questionResultSet.getString("question_value"), answersList));
             }
+        }
+        try (final Statement questionStatement = this.connection.createStatement();
+             final ResultSet resultSet = questionStatement.executeQuery("SELECT q.uid, q.question_value, a.answer_value FROM questions q JOIN answers a ON q.uid = a.question_id AND q.uid IN (SELECT q1.uid FROM questions q1 WHERE " + categoryQuery +" ORDER BY RANDOM() LIMIT " + amount + ")")) {
+
+            qaList = resultSetObjectMapper(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -129,25 +137,33 @@ public class QaDaoJdbc implements QaDao {
     }
 
     @Override
+    public int getQuestionAmount() {
+        int count = 0;
+        try(final Statement statement = this.connection.createStatement();
+            final ResultSet resultSet = statement.executeQuery("SELECT count(*) FROM questions")){
+            resultSet.next();
+            count = resultSet.getInt("count");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    @Override
     public void setQuestions(List<QA> questions) {
         throw new NotImplementedException();
     }
 
     private List<QA> resultSetObjectMapper(ResultSet resultSet) throws SQLException {
         List<QA> qaList = new ArrayList<>();
-        List<String> answersList = new ArrayList<>();
-        int prID = 0;
+        QA prQA = null;
         while (resultSet.next()) {
             int uid = resultSet.getInt("uid");
-            String question_value = resultSet.getString("question_value");
-            if (prID != uid) {
-                prID = uid;
-                if (!answersList.isEmpty()) {
-                    qaList.add(new QA(uid, question_value, answersList));
-                }
-                answersList.clear();
+            if(prQA == null || prQA.getId() != uid){
+                prQA = new QA(uid, resultSet.getString("question_value"), new ArrayList<>(4));
+                qaList.add(prQA);
             }
-            answersList.add(resultSet.getString("answer_value"));
+            prQA.getAnswers().add(resultSet.getString("answer_value"));
         }
         resultSet.close();
         return qaList;

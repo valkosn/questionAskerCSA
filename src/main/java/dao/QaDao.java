@@ -9,9 +9,11 @@ import java.util.List;
  */
 public interface QaDao {
 
-    List<QA> getRandomQuestions(int amount);
+    List<QA> getRandomQuestions(int amount, String[] categories);
 
     List<QA> getAllQuestions();
+
+    int getQuestionAmount();
 
     void setQuestions(List<QA> questions);
 
