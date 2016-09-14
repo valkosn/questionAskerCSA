@@ -1,16 +1,16 @@
 package controller;
 
+import enteties.QA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 import service.QaService;
 import utils.JsonFileConverter;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Valko Serhii on 02-Sep-16.
@@ -31,26 +31,30 @@ public class TestController {
         int questionsAmount = Integer.parseInt(httpServletRequest.getParameter("questionsAmount"));
         int timePerQuestion = Integer.parseInt(httpServletRequest.getParameter("timePerQuestion"));
         String[] categories = httpServletRequest.getParameterValues("categories");
+        List<QA> data = qaService.getRandomQuestions(questionsAmount, categories);
         model.addAttribute("questionsAmount", questionsAmount);
-        model.addAttribute("timePerQuestion" , timePerQuestion);
+        model.addAttribute("timePerQuestion", timePerQuestion);
         switch (testType) {
-            case "normal" : {
+            case "normal": {
                 model.addAttribute("additionalJS", "remoteL");
                 break;
             }
-            case "offline" : {
+            case "offline": {
                 model.addAttribute("additionalJS", "localL");
                 break;
             }
         }
-        model.addAttribute("scriptToRun" , "startTest()");
-        try {
-            model.addAttribute("data", new JsonFileConverter().toJSONString(qaService.getRandomQuestions(questionsAmount, categories)));
+        if (data.size() >= questionsAmount) {
+            try {
+                model.addAttribute("data", new JsonFileConverter().toJSONString(data));
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            model.addAttribute("scriptToRun", "startTest()");
+        } else {
+            model.addAttribute("alert", "Not enough questions, check categories or question amount");
         }
-
         return "index";
     }
 }

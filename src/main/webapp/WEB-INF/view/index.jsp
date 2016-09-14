@@ -68,6 +68,7 @@
                 <option value="600">10 min/question</option>
                 <option value="-1">unlimited time</option>
             </select>
+            <span>${alert}</span>
         </div>
     </div>
 
