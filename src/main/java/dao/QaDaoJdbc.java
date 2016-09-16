@@ -2,8 +2,8 @@ package dao;
 
 import enteties.QA;
 import org.apache.log4j.Logger;
-import service.ISettings;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import utils.ConnectionProvider;
 import utils.JsonFileConverter;
 
 import java.io.IOException;
@@ -20,17 +20,10 @@ public class QaDaoJdbc implements QaDao {
     private String filePath;
     private Connection connection;
 
-    public QaDaoJdbc(String filePath, ISettings settings) throws SQLException {
+    public QaDaoJdbc(String filePath, ConnectionProvider connectionProvider) throws SQLException {
         this.filePath = filePath;
-        try {
-            Class.forName(settings.getValue("jdbc.driver_class"));
-            this.connection = DriverManager.getConnection(
-                    settings.getValue("jdbc.url"), settings.getValue("jdbc.login"), settings.getValue("jdbc.password"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        this.connection = connectionProvider.getConnection();
+
     }
 
     public void init() {

@@ -23,11 +23,11 @@
 
     <bean id="qa_dao" class="dao.QaDaoJdbc" init-method="init">
         <constructor-arg name="filePath" value="../../resources/db/QuestionsDB.json"/>
-        <constructor-arg name="settings" ref="settings"/>
+        <constructor-arg name="connectionProvider" ref="connection_provider"/>
     </bean>
 
     <bean id="category_dao" class="dao.CategoryDaoJdbc">
-        <constructor-arg ref="settings"/>
+        <property name="connection" ref="connection_provider"/>
     </bean>
 
     <!-- Service Beans -->
@@ -48,6 +48,10 @@
 
     <bean id="settings" class="service.Settings">
         <constructor-arg value="askerDB.properties"/>
+    </bean>
+
+    <bean id="connection_provider" class="utils.PostgresConnectionProvider">
+        <constructor-arg name="settings" ref="settings"/>
     </bean>
 
 </beans>

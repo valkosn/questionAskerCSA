@@ -1,7 +1,11 @@
 package dao;
 
-import service.ISettings;
-import java.sql.*;
+import utils.ConnectionProvider;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,17 +16,6 @@ public class CategoryDaoJdbc implements CategoryDao {
 
     private Connection connection;
 
-    public CategoryDaoJdbc(ISettings settings) {
-        try {
-            Class.forName(settings.getValue("jdbc.driver_class"));
-            this.connection = DriverManager.getConnection(
-                    settings.getValue("jdbc.url"), settings.getValue("jdbc.login"), settings.getValue("jdbc.password"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public Map<Integer, String> getAllCategories() {
@@ -36,5 +29,9 @@ public class CategoryDaoJdbc implements CategoryDao {
             e.printStackTrace();
         }
         return allCategories;
+    }
+
+    public void setConnection(ConnectionProvider connectionProvider ) {
+        this.connection = connectionProvider.getConnection();
     }
 }
