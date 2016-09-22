@@ -142,8 +142,42 @@ public class QaDaoJdbc implements QaDao {
     }
 
     @Override
+    public QA getQuestion(int id){
+        QA qa = null;
+        try(PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM questions WHERE uid = ?")) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            qa = resultSetObjectMapper(resultSet).get(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return qa;
+    }
+
+    @Override
     public void setQuestions(List<QA> questions) {
         throw new NotImplementedException();
+    }
+
+    @Override
+    public void deleteQuestion(int id) {
+
+        try(PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM questions WHERE uid = ?")) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteAnswer(int id){
+        try(PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM answers WHERE uid = ?")) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private List<QA> resultSetObjectMapper(ResultSet resultSet) throws SQLException {

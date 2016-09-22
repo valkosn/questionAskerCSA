@@ -15,7 +15,7 @@ public interface QaService {
 
     boolean save (QA qa);
 
-    boolean delete (int id);
+    void delete (int id);
 
     List<QA> findAllQuestionByCategory (String category);
 

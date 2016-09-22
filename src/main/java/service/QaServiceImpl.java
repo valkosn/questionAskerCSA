@@ -15,6 +15,10 @@ public class QaServiceImpl implements QaService {
 
     private QaDao qaDAO;
 
+    public void setQaDAO(QaDao qaDAO) {
+        this.qaDAO = qaDAO;
+    }
+
     public QaServiceImpl() {
     }
 
@@ -45,9 +49,8 @@ public class QaServiceImpl implements QaService {
     }
 
     @Override
-    public boolean delete(int id) {
-
-        throw new NotImplementedException();
+    public void delete(int id) {
+        qaDAO.deleteQuestion(id);
     }
 
     @Override
@@ -69,9 +72,4 @@ public class QaServiceImpl implements QaService {
     public String getCorrectAnswer(int id) {
         return qaDAO.getCorrectAnswer(id);
     }
-
-    public void setQaDAO(QaDao qaDAO) {
-        this.qaDAO = qaDAO;
-    }
-
 }

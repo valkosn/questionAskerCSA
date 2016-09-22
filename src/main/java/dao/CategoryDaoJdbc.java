@@ -2,10 +2,7 @@ package dao;
 
 import utils.ConnectionProvider;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +13,9 @@ public class CategoryDaoJdbc implements CategoryDao {
 
     private Connection connection;
 
+    public void setConnection(ConnectionProvider connectionProvider ) {
+        this.connection = connectionProvider.getConnection();
+    }
 
     @Override
     public Map<Integer, String> getAllCategories() {
@@ -31,7 +31,25 @@ public class CategoryDaoJdbc implements CategoryDao {
         return allCategories;
     }
 
-    public void setConnection(ConnectionProvider connectionProvider ) {
-        this.connection = connectionProvider.getConnection();
+    @Override
+    public void add(String category) {
+        try(PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO categories (category_value) VALUES (?)")) {
+            preparedStatement.setString(1, category);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void delete(String id) {
+        try(PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM categories WHERE uid = ?")) {
+            preparedStatement.setInt(1, Integer.parseInt(id));
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

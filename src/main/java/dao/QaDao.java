@@ -15,7 +15,13 @@ public interface QaDao {
 
     int getQuestionAmount();
 
+    QA getQuestion(int id);
+
     void setQuestions(List<QA> questions);
 
     String getCorrectAnswer(int id);
+
+    void deleteQuestion(int id);
+
+    void deleteAnswer(int id);
 }

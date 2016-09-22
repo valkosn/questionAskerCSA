@@ -1,6 +1,7 @@
 package dao;
 
 import enteties.QA;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import utils.JsonFileConverter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,5 +51,10 @@ public class QaDaoFileDB implements QaDao {
 
     private void init() throws IOException {
         this.questions = new JsonFileConverter().toJavaObjectViaJackson(filePath);
+    }
+
+    @Override
+    public void deleteQuestion(int id) {
+        throw new NotImplementedException();
     }
 }

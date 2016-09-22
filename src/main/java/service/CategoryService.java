@@ -7,4 +7,8 @@ import java.util.Map;
  */
 public interface CategoryService {
     Map<Integer, String> getAllCategories();
+
+    void add(String category);
+
+    void remove(String id);
 }

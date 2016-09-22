@@ -8,4 +8,8 @@ import java.util.Map;
 public interface CategoryDao {
 
     Map<Integer, String> getAllCategories();
+
+    void add(String category);
+
+    void delete(String id);
 }
