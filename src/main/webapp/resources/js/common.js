@@ -141,7 +141,7 @@ function getPreviousQuestion() {
     common.currantQuestion--;
 }
 
-//TODO: fix to call this function
+//TODO: fix call this function
 function getQuestion(questionNumber) {
     document.getElementById("result_screen").hide();
     document.getElementById("question_holder_" + questionNumber).show();
@@ -172,7 +172,7 @@ function renderQuestionAndAnswers(question, answers, questionNumber) {
     var number = answers.length;
 
     for (var i = 0; i < number; i++) {
-        answerContainer.appendChild(renderAnswer(questionNumber, i, answers[i]));
+        answerContainer.appendChild(renderAnswer(questionNumber, i, answers[i].answer));
     }
     document.getElementById("test_answers").appendChild(questionContainer);
     common.renderedQuestionsAmount++;

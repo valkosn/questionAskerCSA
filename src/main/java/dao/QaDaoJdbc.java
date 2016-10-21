@@ -1,5 +1,6 @@
 package dao;
 
+import enteties.Answer;
 import enteties.QA;
 import org.apache.log4j.Logger;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -43,10 +44,10 @@ public class QaDaoJdbc implements QaDao {
                 questionStatement.setInt(2, categoryUid);
                 questionStatement.execute();
                 questionStatement.clearParameters();
-                List<String> answersList = qaList.get(i).getAnswers();
+                List<Answer> answersList = qaList.get(i).getAnswers();
                 for (int j = 0; j < answersList.size(); j++) {
                     answersStatement.setInt(1, i + 1);
-                    answersStatement.setString(2, answersList.get(j));
+                    answersStatement.setString(2, answersList.get(j).getAnswer());
                     answersStatement.setBoolean(3, j == 0);
                     answersStatement.execute();
                     answersStatement.clearParameters();
@@ -90,7 +91,7 @@ public class QaDaoJdbc implements QaDao {
             categoryQuery.delete(0, categoryQuery.length());
         }
         try (final Statement questionStatement = this.connection.createStatement();
-             final ResultSet resultSet = questionStatement.executeQuery("SELECT q.uid, q.question_value, a.answer_value FROM questions q JOIN answers a ON q.uid = a.question_id AND q.uid IN (SELECT q1.uid FROM questions q1 " + categoryQuery + " ORDER BY RANDOM() LIMIT " + amount + ")")) {
+             final ResultSet resultSet = questionStatement.executeQuery("SELECT q.uid, q.question_value, a.uid as answer_uid, a.answer_value FROM questions q JOIN answers a ON q.uid = a.question_id AND q.uid IN (SELECT q1.uid FROM questions q1 " + categoryQuery + " ORDER BY RANDOM() LIMIT " + amount + ")")) {
 
             qaList = resultSetObjectMapper(resultSet);
         } catch (SQLException e) {
@@ -103,7 +104,7 @@ public class QaDaoJdbc implements QaDao {
     public List<QA> getAllQuestions() {
         List<QA> qaList = new ArrayList<>();
         try (final Statement statement = this.connection.createStatement();
-             final ResultSet resultSet = statement.executeQuery("SELECT questions.uid, questions.question_value, answer_value FROM questions INNER JOIN answers ON questions.uid = answers.question_id")) {
+             final ResultSet resultSet = statement.executeQuery("SELECT questions.uid, questions.question_value, answers.uid as answer_uid, answers.answer_value FROM questions INNER JOIN answers ON questions.uid = answers.question_id")) {
             qaList = resultSetObjectMapper(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -144,7 +145,7 @@ public class QaDaoJdbc implements QaDao {
     @Override
     public QA getQuestion(int id){
         QA qa = null;
-        try(PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM questions WHERE uid = ?")) {
+        try(PreparedStatement preparedStatement = connection.prepareStatement("SELECT questions.uid, questions.question_value, answers.uid as answer_uid, answers.answer_value FROM questions INNER JOIN answers ON questions.uid = answers.question_id WHERE questions.uid = ?")) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             qa = resultSetObjectMapper(resultSet).get(0);
@@ -189,7 +190,8 @@ public class QaDaoJdbc implements QaDao {
                 prQA = new QA(uid, resultSet.getString("question_value"), new ArrayList<>(4));
                 qaList.add(prQA);
             }
-            prQA.getAnswers().add(resultSet.getString("answer_value"));
+            Answer answer = new Answer(resultSet.getInt("answer_uid"), resultSet.getString("answer_value"));
+            prQA.getAnswers().add(answer);
         }
         resultSet.close();
         return qaList;

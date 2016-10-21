@@ -10,5 +10,5 @@ public interface CategoryService {
 
     void add(String category);
 
-    void remove(String id);
+    void remove(int id);
 }

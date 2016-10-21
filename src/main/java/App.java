@@ -1,10 +1,5 @@
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import service.QaService;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Valko Serhii on 29-Aug-16.
@@ -12,7 +7,9 @@ import java.util.List;
 public class App {
 
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring/beans.xml");
+        // FIXME: 10/19/2016 set correct application-context path...
+        System.out.println("//|\\");
+        ApplicationContext context = new ClassPathXmlApplicationContext("src/main/webapp/WEB-INF/config/application-context.xml");
         Renderer renderer = context.getBean("console_renderer", Renderer.class);
         renderer.render();
 

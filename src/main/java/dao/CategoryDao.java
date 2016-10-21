@@ -11,5 +11,5 @@ public interface CategoryDao {
 
     void add(String category);
 
-    void delete(String id);
+    void delete(int id);
 }

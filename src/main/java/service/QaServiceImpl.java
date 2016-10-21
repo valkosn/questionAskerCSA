@@ -1,6 +1,7 @@
 package service;
 
 import dao.QaDao;
+import enteties.Answer;
 import enteties.QA;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -23,8 +24,8 @@ public class QaServiceImpl implements QaService {
     }
 
     @Override
-    public QA find(int id) {
-        return qaDAO.getAllQuestions().get(id);
+    public QA findById(int id) {
+        return qaDAO.getQuestion(id);
     }
 
     @Override
@@ -49,11 +50,6 @@ public class QaServiceImpl implements QaService {
     }
 
     @Override
-    public void delete(int id) {
-        qaDAO.deleteQuestion(id);
-    }
-
-    @Override
     public List<QA> getAllQuestions() {
         return qaDAO.getAllQuestions();
     }
@@ -71,5 +67,19 @@ public class QaServiceImpl implements QaService {
     @Override
     public String getCorrectAnswer(int id) {
         return qaDAO.getCorrectAnswer(id);
+    }
+
+    @Override
+    public void deleteQuestion(int id) {
+        QA qa = findById(id);
+        for(Answer answer : qa.getAnswers()){
+            deleteAnswer(answer.getId());
+        }
+        qaDAO.deleteQuestion(qa.getId());
+    }
+
+    @Override
+    public void deleteAnswer(int id) {
+        qaDAO.deleteAnswer(id);
     }
 }

@@ -1,3 +1,4 @@
+import enteties.Answer;
 import enteties.QA;
 import service.QaService;
 
@@ -33,7 +34,7 @@ public class ConsoleRenderer implements Renderer {
 
             for (QA question : questions) {
                 checkTime();
-                List<String> answersToPublishing = printQuestionAndCheckAnswer(question);
+                List<Answer> answersToPublishing = printQuestionAndCheckAnswer(question);
                 waiting:
                 while (true) {
                     checkTime();
@@ -57,23 +58,23 @@ public class ConsoleRenderer implements Renderer {
         exit();
     }
 
-    private List<String> printQuestionAndCheckAnswer(QA question) throws IOException {
+    private List<Answer> printQuestionAndCheckAnswer(QA question) throws IOException {
         System.out.println(question.getQuestion());
 
-        List<String> originalAnswers = question.getAnswers();
-        List<String> answersToPublishing = new ArrayList<>(originalAnswers);
+        List<Answer> originalAnswers = question.getAnswers();
+        List<Answer> answersToPublishing = new ArrayList<>(originalAnswers);
 
         Collections.shuffle(answersToPublishing);
 
         int i = 1;
-        for (String answer : answersToPublishing) {
-            System.out.println(i++ + ". " + answer);
+        for (Answer answer : answersToPublishing) {
+            System.out.println(i++ + ". " + answer.getAnswer());
         }
 
         return answersToPublishing;
     }
 
-    private Options checkTheAnswer(BufferedReader bufferedReader, List<String> originalAnswers, List<String> answersToPublishing) throws IOException {
+    private Options checkTheAnswer(BufferedReader bufferedReader, List<Answer> originalAnswers, List<Answer> answersToPublishing) throws IOException {
         java.lang.String rawSelectedAnswer = bufferedReader.readLine();
         if (rawSelectedAnswer != null && !rawSelectedAnswer.isEmpty()) {
             if ("q".equalsIgnoreCase(rawSelectedAnswer)) {
@@ -91,7 +92,7 @@ public class ConsoleRenderer implements Renderer {
             }
 
             if (answersToPublishing.size() >= selectedAnswer) {
-                if (answersToPublishing.get(selectedAnswer).equalsIgnoreCase(originalAnswers.get(0))) {
+                if (answersToPublishing.get(selectedAnswer).getAnswer().equalsIgnoreCase(originalAnswers.get(0).getAnswer())) {
                     System.out.println("You are right!! :)");
                     rightAnswers++;
                 } else {

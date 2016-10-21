@@ -41,7 +41,7 @@ public class QuestionManagerController {
                 break;
             }
             case "rm": {
-                qaService.delete(id);
+                qaService.deleteQuestion(id);
                 return "/config/questionManager";
             }
         }

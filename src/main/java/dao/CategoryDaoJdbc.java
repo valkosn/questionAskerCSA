@@ -43,9 +43,9 @@ public class CategoryDaoJdbc implements CategoryDao {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(int id) {
         try(PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM categories WHERE uid = ?")) {
-            preparedStatement.setInt(1, Integer.parseInt(id));
+            preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

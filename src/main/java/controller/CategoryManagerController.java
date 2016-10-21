@@ -38,6 +38,6 @@ public class CategoryManagerController {
     @RequestMapping(method = RequestMethod.POST, params = {"id"})
     public void removeCategory(HttpServletRequest httpServletRequest){
         String id = httpServletRequest.getParameter("id");
-        categoryService.remove(id);
+        categoryService.remove(Integer.parseInt(id));
     }
 }

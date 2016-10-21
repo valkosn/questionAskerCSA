@@ -35,13 +35,23 @@ public class QaDaoFileDB implements QaDao {
     }
 
     @Override
+    public QA getQuestion(int id) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public void deleteAnswer(int id) {
+        throw new NotImplementedException();
+    }
+
+    @Override
     public void setQuestions(List<QA> questions) {
         this.questions = questions;
     }
 
     @Override
     public String getCorrectAnswer(int id) {
-        return questions.get(id).getAnswers().get(0);
+        return questions.get(id).getAnswers().get(0).getAnswer();
     }
 
     @Override

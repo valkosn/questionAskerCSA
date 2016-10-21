@@ -23,6 +23,9 @@
                     data: {'id': id, 'type': type},
                     dataType: "text",
                     success: function () {
+                        if(type == 'rm') {
+                            location.reload(true);
+                        }
                     },
                     error: function () {
                         debugger;

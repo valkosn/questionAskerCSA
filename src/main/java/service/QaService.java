@@ -9,13 +9,11 @@ import java.util.List;
  */
 public interface QaService {
 
-    QA find (int id);
+    QA findById(int id);
 
     QA findByQuestion (String question);
 
     boolean save (QA qa);
-
-    void delete (int id);
 
     List<QA> findAllQuestionByCategory (String category);
 
@@ -26,4 +24,8 @@ public interface QaService {
     int getQuestionAmount();
 
     String getCorrectAnswer(int id);
+
+    void deleteQuestion(int id);
+
+    void deleteAnswer(int id);
 }
