@@ -28,6 +28,7 @@
 
     <bean id="category_dao" class="dao.CategoryDaoJdbc">
         <property name="connection" ref="connection_provider"/>
+        <property name="qaService" ref="qa_service"/>
     </bean>
 
     <!-- Service Beans -->
@@ -38,7 +39,6 @@
 
     <bean id="category_service" class="service.CategoryServiceImpl">
         <property name="categoryDAO" ref="category_dao"/>
-        <property name="qaService" ref="qa_service"/>
     </bean>
 
     <!-- Other Beans-->

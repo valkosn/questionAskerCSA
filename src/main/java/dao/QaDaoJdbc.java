@@ -104,11 +104,27 @@ public class QaDaoJdbc implements QaDao {
     public List<QA> getAllQuestions() {
         List<QA> qaList = new ArrayList<>();
         try (final Statement statement = this.connection.createStatement();
-             final ResultSet resultSet = statement.executeQuery("SELECT questions.uid, questions.question_value, answers.uid as answer_uid, answers.answer_value FROM questions INNER JOIN answers ON questions.uid = answers.question_id")) {
+             final ResultSet resultSet = statement.executeQuery("SELECT questions.uid, questions.question_value, answers.uid AS answer_uid, answers.answer_value FROM questions INNER JOIN answers ON questions.uid = answers.question_id")) {
             qaList = resultSetObjectMapper(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return qaList;
+    }
+
+    @Override
+    public List<QA> getAllQuestions(int categoryID) {
+        List<QA> qaList = new ArrayList<>();
+        try (final PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT questions.uid, questions.question_value, answers.uid AS answer_uid, answers.answer_value FROM questions INNER JOIN answers ON questions.uid = answers.question_id WHERE category_id = ?");) {
+            preparedStatement.setInt(1, categoryID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            qaList = resultSetObjectMapper(resultSet);
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
         return qaList;
     }
@@ -143,12 +159,16 @@ public class QaDaoJdbc implements QaDao {
     }
 
     @Override
-    public QA getQuestion(int id){
+    public QA getQuestion(int id) {
         QA qa = null;
-        try(PreparedStatement preparedStatement = connection.prepareStatement("SELECT questions.uid, questions.question_value, answers.uid as answer_uid, answers.answer_value FROM questions INNER JOIN answers ON questions.uid = answers.question_id WHERE questions.uid = ?")) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT questions.uid, questions.question_value, answers.uid AS answer_uid, answers.answer_value FROM questions INNER JOIN answers ON questions.uid = answers.question_id WHERE questions.uid = ?")) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            qa = resultSetObjectMapper(resultSet).get(0);
+            List<QA> qaList = resultSetObjectMapper(resultSet);
+            if (!(qaList == null) && !qaList.isEmpty()) {
+                qa = qaList.get(0);
+            }
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -163,7 +183,7 @@ public class QaDaoJdbc implements QaDao {
     @Override
     public void deleteQuestion(int id) {
 
-        try(PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM questions WHERE uid = ?")) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM questions WHERE uid = ?")) {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -172,8 +192,8 @@ public class QaDaoJdbc implements QaDao {
     }
 
     @Override
-    public void deleteAnswer(int id){
-        try(PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM answers WHERE uid = ?")) {
+    public void deleteAnswer(int id) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM answers WHERE uid = ?")) {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {

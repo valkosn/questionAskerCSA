@@ -13,6 +13,8 @@ public interface QaDao {
 
     List<QA> getAllQuestions();
 
+    List<QA> getAllQuestions(int categoryID);
+
     int getQuestionAmount();
 
     QA getQuestion(int id);

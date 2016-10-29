@@ -37,10 +37,16 @@ public class QaServiceImpl implements QaService {
         throw new NoSuchElementException("Question with questionValue - " + questionValue + " not found");
     }
 
+    // TODO: 10/29/2016 it should be refactored
     @Override
-    public List<QA> findAllQuestionByCategory(String category) {
+    public List<QA> getAllQuestionByCategory(String category) {
         return qaDAO.getAllQuestions().stream().filter(question ->
                 question.getCategory().equals(category)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<QA> getAllQuestionByCategory(int id) {
+        return qaDAO.getAllQuestions(id);
     }
 
     @Override

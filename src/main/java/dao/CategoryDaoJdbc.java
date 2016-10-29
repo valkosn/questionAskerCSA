@@ -1,9 +1,12 @@
 package dao;
 
+import enteties.QA;
+import service.QaService;
 import utils.ConnectionProvider;
 
 import java.sql.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,17 +15,22 @@ import java.util.Map;
 public class CategoryDaoJdbc implements CategoryDao {
 
     private Connection connection;
+    private QaService qaService;
 
-    public void setConnection(ConnectionProvider connectionProvider ) {
+    public void setConnection(ConnectionProvider connectionProvider) {
         this.connection = connectionProvider.getConnection();
+    }
+
+    public void setQaService(QaService qaService) {
+        this.qaService = qaService;
     }
 
     @Override
     public Map<Integer, String> getAllCategories() {
         Map<Integer, String> allCategories = new HashMap<>();
-        try(Statement statement = this.connection.createStatement()) {
+        try (Statement statement = this.connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM categories");
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 allCategories.put(resultSet.getInt("uid"), resultSet.getString("category_value"));
             }
         } catch (SQLException e) {
@@ -33,7 +41,7 @@ public class CategoryDaoJdbc implements CategoryDao {
 
     @Override
     public void add(String category) {
-        try(PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO categories (category_value) VALUES (?)")) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO categories (category_value) VALUES (?)")) {
             preparedStatement.setString(1, category);
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -44,7 +52,13 @@ public class CategoryDaoJdbc implements CategoryDao {
 
     @Override
     public void delete(int id) {
-        try(PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM categories WHERE uid = ?")) {
+        List<QA> qaList = qaService.getAllQuestionByCategory(id);
+        if (!(qaList == null) && !qaList.isEmpty()) {
+            for (QA question : qaList) {
+                qaService.deleteQuestion(question.getId());
+            }
+        }
+        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM categories WHERE uid = ?")) {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {

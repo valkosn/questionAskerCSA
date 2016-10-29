@@ -3,6 +3,7 @@ package dao;
 import enteties.QA;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import utils.JsonFileConverter;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,6 +33,11 @@ public class QaDaoFileDB implements QaDao {
         List<QA> shuffledList = new ArrayList<>(questions);
         Collections.shuffle(shuffledList);
         return shuffledList.subList(0, amount);
+    }
+
+    @Override
+    public List<QA> getAllQuestions(int categoryID) {
+        throw new NotImplementedException();
     }
 
     @Override

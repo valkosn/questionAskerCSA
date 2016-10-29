@@ -10,14 +10,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     private CategoryDao categoryDAO;
 
-    private QaService qaService;
-
     public void setCategoryDAO(CategoryDao categoryDAO) {
         this.categoryDAO = categoryDAO;
-    }
-
-    public void setQaService(QaService qaService) {
-        this.qaService = qaService;
     }
 
     @Override
@@ -35,6 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void remove(int id) {
+
         categoryDAO.delete(id);
     }
 }

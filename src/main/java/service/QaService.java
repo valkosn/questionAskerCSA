@@ -15,7 +15,9 @@ public interface QaService {
 
     boolean save (QA qa);
 
-    List<QA> findAllQuestionByCategory (String category);
+    List<QA> getAllQuestionByCategory(String category);
+
+    List<QA> getAllQuestionByCategory(int id);
 
     List<QA> getAllQuestions();
 
