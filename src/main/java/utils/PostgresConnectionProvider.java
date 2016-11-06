@@ -13,6 +13,7 @@ public class PostgresConnectionProvider implements ConnectionProvider {
     private Connection connection;
 
     public PostgresConnectionProvider(ISettings settings) {
+        //jdbc:postgresql://127.0.0.1:5432/asker?user=postgres&password=21RhWiI_3820
         String fullURL = System.getenv("JDBC_URL_TO_DB");
 
         try {

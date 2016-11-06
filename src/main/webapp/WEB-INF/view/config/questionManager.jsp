@@ -11,19 +11,22 @@
 
     </head>
     <body>
-        <form id="question_form" class="question_form" style="display: none">
-            <select id="category" class="single-select" title="Category">
+
+        <div id="question_form_holder"></div>
+
+        <form id="question_form_template" class="question_form" style="display: none">
+            <select id="category_template" class="single-select" title="Category">
                 <c:forEach items="${categories}" var="cat">
                     <option  id="category_${cat.key}" value="${cat.key}">${cat.value}</option>
                 </c:forEach>
             </select> <br/>
-            <input id="question" class="control_container_element" type="text" value= "Question" title="Question"/> <br/>
+            <input id="question_template" class="control_container_element" type="text" value= "Question" title="Question"/> <br/>
 
             <input class="control_container_element" type=button value="+" onclick="addAnswerField()"><br/>
-            <div id="answer_container">
-                <input id="answer_1" class="control_container_element" name="answer" type="text" value="Answer"/>
+            <div id="answer_container_template">
+                <input id="answer_0" class="control_container_element" name="answer" type="text" value="Answer"/>
             </div>
-            <input class="control_container_element" type=button value="-" onclick="delAnswerField()"><br/>
+            <input class="control_container_element" type="button" value="-" onclick="delAnswerField()"><br/>
             <input class="control_container_element" type="button" value="Save" onclick="save()"/>
             <input class="control_container_element" type="button" value="Cancel" onclick="cancel()"/>
         </form>
@@ -38,12 +41,12 @@
         </div>
 
         <script>
-            var newQ = function () {
+            function newQ () {
 
                 $("#question_form").css("display", "block");
-            };
+            }
 
-            var save = function () {
+            function save () {
                 $.ajax({
                     url: "/qa/config/questionManager",
                     type: "POST",
@@ -56,32 +59,26 @@
                         debugger;
                     }
                 });
-            };
+            }
 
-            var edit = function (id) {
+            function edit (id) {
                 $.ajax({
                     url: "/qa/config/questionManager/" + id,
                     type: "GET",
                     success: function (data) {
-//                        $("").prop("selected", true);
-                        $("#question").prop("value", data.question);
-                        for(var i = 0; i < data.answers.length - 1; i++) {
-                            addAnswerField();
-                        }
-                        $("#question_form").css("display", "block");
+                        clearHolder();
+                        render(data);
                     },
                     error: function () {
                         debugger;
                     }
                 });
-            };
+            }
 
-            var deleteQ = function (id) {
+            function deleteQ (id) {
                 $.ajax({
                     url: "/qa/config/questionManager/" + id,
                     type: "DELETE",
-//                    data: {'id': id},
-//                    dataType: "text",
                     success: function () {
                         location.reload(true);
                     },
@@ -89,24 +86,53 @@
                         debugger;
                     }
                 });
-            };
+            }
 
-            var addAnswerField = function () {
+            function addAnswerField () {
                 var answerContainer = $("#answer_container");
+
                 var answerClone = answerContainer.children().last().clone();
                 var idParts = answerClone.attr('id').split('_');
                 answerClone.attr('id', idParts[0] + "_" + ++idParts[1]);
                 answerContainer.append(answerClone);
-            };
+            }
 
-            var delAnswerField = function (id) {
+            function delAnswerField (id) {
                 $("#" + id).remove();
-            };
+            }
 
 
-            var cancel = function(){
+            function cancel (){
                 $("#question_form").css("display", "none")
-            };
+            }
+
+            function render(qa) {
+                var questionForm = $("#question_form_template").clone();
+                questionForm.prop("id", "question_form");
+                questionForm.children("#category_template").prop("id", "category");
+                questionForm.children("#question_template").prop("id", "question");
+                questionForm.children("#answer_container_template").prop("id", "answer_container");
+                $("#question_form_holder").append(questionForm);
+
+                $("#category").find("#category_" + qa.categoryUID).attr("selected", true);
+                $("#category").trigger("chosen:update");
+
+                $("#question").prop("value", qa.question);
+                for(var i = 0; i < qa.answers.length - 1; i++) {
+                    $("#answer_container").find("#answer_" + i).prop("value", qa.answers[i].answer);
+                    addAnswerField();
+                }
+                $("#question_form").css("display", "block");
+
+            }
+
+            function fillHolder() {
+
+            }
+
+            function clearHolder() {
+                $("#question_form_holder").children().remove();
+            }
 
         </script>
     </body>
