@@ -15,6 +15,8 @@ public final class QA {
     @JsonProperty("category")
     private String category;
 
+    private int categoryUID;
+
     @JsonProperty("question")
     private String question;
 
@@ -34,6 +36,12 @@ public final class QA {
         this.answers = answers;
         this.category = category;
     }
+    public QA(int id, String question, List<Answer> answers, int categoryUID) {
+        this.id = id;
+        this.question = question;
+        this.answers = answers;
+        this.categoryUID = categoryUID;
+    }
 
     public int getId() {
         return id;
@@ -41,6 +49,10 @@ public final class QA {
 
     public String getCategory() {
         return category;
+    }
+
+    public int getCategoryUID() {
+        return categoryUID;
     }
 
     public String getQuestion() {

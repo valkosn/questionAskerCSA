@@ -63,10 +63,10 @@ public class QaServiceImpl implements QaService {
     @Override
     public List<QA> getRandomQuestions(int amount, String[] categories) {
         return qaDAO.getRandomQuestions(amount, categories);
-}
+    }
 
     @Override
-    public int getQuestionAmount(){
+    public int getQuestionAmount() {
         return qaDAO.getQuestionAmount();
     }
 
@@ -78,10 +78,12 @@ public class QaServiceImpl implements QaService {
     @Override
     public void deleteQuestion(int id) {
         QA qa = findById(id);
-        for(Answer answer : qa.getAnswers()){
-            deleteAnswer(answer.getId());
+        if (!(qa == null)) {
+            for (Answer answer : qa.getAnswers()) {
+                deleteAnswer(answer.getId());
+            }
+            qaDAO.deleteQuestion(qa.getId());
         }
-        qaDAO.deleteQuestion(qa.getId());
     }
 
     @Override

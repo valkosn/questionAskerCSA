@@ -91,7 +91,7 @@ public class QaDaoJdbc implements QaDao {
             categoryQuery.delete(0, categoryQuery.length());
         }
         try (final Statement questionStatement = this.connection.createStatement();
-             final ResultSet resultSet = questionStatement.executeQuery("SELECT q.uid, q.question_value, a.uid as answer_uid, a.answer_value FROM questions q JOIN answers a ON q.uid = a.question_id AND q.uid IN (SELECT q1.uid FROM questions q1 " + categoryQuery + " ORDER BY RANDOM() LIMIT " + amount + ")")) {
+             final ResultSet resultSet = questionStatement.executeQuery("SELECT q.uid, q.question_value, a.uid as answer_uid, a.answer_value, questions.category_id as category_uid FROM questions q JOIN answers a ON q.uid = a.question_id AND q.uid IN (SELECT q1.uid FROM questions q1 " + categoryQuery + " ORDER BY RANDOM() LIMIT " + amount + ")")) {
 
             qaList = resultSetObjectMapper(resultSet);
         } catch (SQLException e) {
@@ -104,7 +104,7 @@ public class QaDaoJdbc implements QaDao {
     public List<QA> getAllQuestions() {
         List<QA> qaList = new ArrayList<>();
         try (final Statement statement = this.connection.createStatement();
-             final ResultSet resultSet = statement.executeQuery("SELECT questions.uid, questions.question_value, answers.uid AS answer_uid, answers.answer_value FROM questions INNER JOIN answers ON questions.uid = answers.question_id")) {
+             final ResultSet resultSet = statement.executeQuery("SELECT questions.uid, questions.question_value, answers.uid AS answer_uid, answers.answer_value, questions.category_id as category_uid FROM questions INNER JOIN answers ON questions.uid = answers.question_id")) {
             qaList = resultSetObjectMapper(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -116,7 +116,7 @@ public class QaDaoJdbc implements QaDao {
     @Override
     public List<QA> getAllQuestions(int categoryID) {
         List<QA> qaList = new ArrayList<>();
-        try (final PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT questions.uid, questions.question_value, answers.uid AS answer_uid, answers.answer_value FROM questions INNER JOIN answers ON questions.uid = answers.question_id WHERE category_id = ?");) {
+        try (final PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT questions.uid, questions.question_value, answers.uid AS answer_uid, answers.answer_value, questions.category_id as category_uid FROM questions INNER JOIN answers ON questions.uid = answers.question_id WHERE category_id = ?");) {
             preparedStatement.setInt(1, categoryID);
             ResultSet resultSet = preparedStatement.executeQuery();
             qaList = resultSetObjectMapper(resultSet);
@@ -161,7 +161,7 @@ public class QaDaoJdbc implements QaDao {
     @Override
     public QA getQuestion(int id) {
         QA qa = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT questions.uid, questions.question_value, answers.uid AS answer_uid, answers.answer_value FROM questions INNER JOIN answers ON questions.uid = answers.question_id WHERE questions.uid = ?")) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT questions.uid, questions.question_value, answers.uid AS answer_uid, answers.answer_value, questions.category_id as category_uid FROM questions INNER JOIN answers ON questions.uid = answers.question_id WHERE questions.uid = ?")) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             List<QA> qaList = resultSetObjectMapper(resultSet);
@@ -206,8 +206,9 @@ public class QaDaoJdbc implements QaDao {
         QA prQA = null;
         while (resultSet.next()) {
             int uid = resultSet.getInt("uid");
+            int categoryUID = resultSet.getInt("category_uid");
             if (prQA == null || prQA.getId() != uid) {
-                prQA = new QA(uid, resultSet.getString("question_value"), new ArrayList<>(4));
+                prQA = new QA(uid, resultSet.getString("question_value"), new ArrayList<>(4), categoryUID);
                 qaList.add(prQA);
             }
             Answer answer = new Answer(resultSet.getInt("answer_uid"), resultSet.getString("answer_value"));

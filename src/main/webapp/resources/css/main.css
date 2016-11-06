@@ -17,14 +17,14 @@ label#title {
     font-size: 15px;
 }
 
-.questions{
+.questions {
 }
 
 .answers {
     cursor: pointer;
 }
 
-.title{
+.title {
     font-size: 12px;
 }
 
@@ -39,10 +39,28 @@ label#title {
     text-align: center;
 }
 
-div#result_message{
+div#result_message {
     display: inline-block;
 }
 
 .control_container {
     padding-top: 15px;
+}
+
+.control_container_element {
+    height: 24px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+
+.question_form {
+    position: fixed;
+    left: 30%;
+    width: 640px;
+    height: 480px;
+    background: darkgray;
+    padding: 5px;
+    border: solid 1px black;
+    top: 40px;
+    display: block;
 }

@@ -8,6 +8,7 @@
     <link href="/qa/resources/lib/chosen_v1.6.2/chosen.css" rel="stylesheet" type="text/css">
     <script src="/qa/resources/lib/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="/qa/resources/lib/chosen_v1.6.2/chosen.jquery.js" type="text/javascript"></script>
+    <script src="/qa/resources/js/chosenConfig.js" type="text/javascript"></script>
     <script>
         data = ${data};
         questionsAmount = ${questionsAmount};
@@ -38,8 +39,8 @@
         <div id="prompt">If you are ready, press START. Good luck!</div>
 
         <div class="control_container">
-            <input id="start" type="submit" value="Start">
-            <input id="config" type="button" value="Config"
+            <input id="start" class="control_container_element" type="submit" value="Start">
+            <input id="config" class="control_container_element" type="button" value="Config"
                    onclick="location.href='${pageContext.request.contextPath}/config'">
             <select id="test_type" name="testType" class="single-select" title="Test type">
                 <option value="normal" selected="selected">Normal</option>
@@ -73,17 +74,6 @@
     </div>
 
     <script type="text/javascript">
-        $(function () {
-            $(".category-select").chosen({
-                max_selected_options: "5",
-                width: "25%"
-            });
-
-            $(".single-select").chosen({
-                width: "10%",
-                disable_search: "true"
-            });
-        });
 
     </script>
 </form>
@@ -118,8 +108,8 @@
     </div>
 
     <div class="control_container">
-        <input id="evaluate" type="button" value="Evaluate" onclick="evaluateResults()"/>
-        <input id="new_attempt" type="button" value="New attempt" onclick="newAttempt()"/>
+        <input id="evaluate" class="control_container_element" type="button" value="Evaluate" onclick="evaluateResults()"/>
+        <input id="new_attempt" class="control_container_element" type="button" value="New attempt" onclick="newAttempt()"/>
         <div id="result_message"></div>
     </div>
 </div>
