@@ -1,7 +1,9 @@
 package controller;
 
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import enteties.QA;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import service.CategoryService;
@@ -34,20 +36,15 @@ public class QuestionManagerController {
         return model;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String saveNew(@RequestParam(value = "id") Integer id) {
-
-        return "/config/questionManager";
-    }
-
     @RequestMapping(method = RequestMethod.GET, value = "{id}")
-    public @ResponseBody QA edit(@PathVariable(value = "id") Integer id) {
+    public @ResponseBody QA get (@PathVariable(value = "id") Integer id) {
         return qaService.findById(id);
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public String save(){
-        return "/config/questionManager";
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String save(@RequestBody QA question){
+        question.getId();
+        return "";
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "{id}")
