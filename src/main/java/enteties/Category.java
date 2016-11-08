@@ -7,25 +7,36 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  */
 public class Category {
 
-    private int id;
+    private int categoryId;
 
-    private String category;
+    private String categoryName;
+
+    public Category() {
+    }
 
     @JsonCreator
-    public Category(String category) {
-        this.category = category;
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public Category(int id, String category) {
-        this.id = id;
-        this.category = category;
+    public Category(int categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
     }
 
-    public int getId() {
-        return id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

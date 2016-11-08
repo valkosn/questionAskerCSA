@@ -39,7 +39,7 @@
                 $.ajax({
                     url: "/qa/config/categoryManager",
                     type: "POST",
-                    data: {'id': catID},
+                    data: {'categoryId': catID},
                     dataType: "text",
                     success: function () {
                         location.reload(true);

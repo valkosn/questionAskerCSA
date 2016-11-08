@@ -1,6 +1,7 @@
 package dao;
 
 import enteties.Answer;
+import enteties.Category;
 import enteties.QA;
 import org.apache.log4j.Logger;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -35,8 +36,8 @@ public class QaDaoJdbc implements QaDao {
              final PreparedStatement categoryStatement = this.connection.prepareStatement("WITH s AS (SELECT uid, category_value FROM categories WHERE category_value = ?), i AS (INSERT INTO categories (category_value) SELECT ? WHERE NOT exists(SELECT 1 FROM s) RETURNING uid, category_value) SELECT uid, category_value FROM i UNION ALL SELECT uid, category_value FROM s")) {
             List<QA> qaList = new JsonFileConverter().toJavaObjectViaJackson(filePath);
             for (int i = 0; i < qaList.size(); i++) {
-                categoryStatement.setString(1, qaList.get(i).getCategory());
-                categoryStatement.setString(2, qaList.get(i).getCategory());
+                categoryStatement.setString(1, qaList.get(i).getCategory().getCategoryName());
+                categoryStatement.setString(2, qaList.get(i).getCategory().getCategoryName());
                 ResultSet categoryResultSet = categoryStatement.executeQuery();
                 categoryResultSet.next();
                 int categoryUid = categoryResultSet.getInt("uid");
@@ -207,8 +208,9 @@ public class QaDaoJdbc implements QaDao {
         while (resultSet.next()) {
             int uid = resultSet.getInt("uid");
             int categoryUID = resultSet.getInt("category_uid");
-            if (prQA == null || prQA.getId() != uid) {
-                prQA = new QA(uid, resultSet.getString("question_value"), new ArrayList<>(4), categoryUID);
+            if (prQA == null || prQA.getQuestionId() != uid) {
+                Category category = new Category(categoryUID, null);
+                prQA = new QA(uid, resultSet.getString("question_value"), new ArrayList<>(4), category);
                 qaList.add(prQA);
             }
             Answer answer = new Answer(resultSet.getInt("answer_uid"), resultSet.getString("answer_value"));

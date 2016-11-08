@@ -8,14 +8,13 @@ import java.util.List;
 /**
  * Created by Valko Serhii on 29-Aug-16.
  */
+//TODO: refactor it
 public final class QA {
-    @JsonProperty("id")
-    private int id;
+    @JsonProperty("questionId")
+    private int questionId;
 
     @JsonProperty("category")
-    private String category;
-
-    private int categoryUID;
+    private Category category;
 
     @JsonProperty("question")
     private String question;
@@ -23,36 +22,34 @@ public final class QA {
     @JsonProperty("answers")
     private List<Answer> answers;
 
+    public QA() {
+    }
+
     // TODO: 10/21/2016 add default (empty) category
-    public QA(int id, String question, List<Answer> answers) {
-        this.id = id;
+    public QA(int questionId, String question, List<Answer> answers) {
+        this.questionId = questionId;
         this.question = question;
         this.answers = answers;
     }
+
     @JsonCreator
-    public QA(@JsonProperty("id") int id, @JsonProperty("question") String question, @JsonProperty("answers") List<Answer> answers, @JsonProperty("category") String category) {
-        this.id = id;
+    public QA(@JsonProperty("questionId") int questionId,
+              @JsonProperty("question") String question,
+              @JsonProperty("answers") List<Answer> answers,
+              @JsonProperty("category") Category category) {
+        this.questionId = questionId;
         this.question = question;
         this.answers = answers;
         this.category = category;
     }
-    public QA(int id, String question, List<Answer> answers, int categoryUID) {
-        this.id = id;
-        this.question = question;
-        this.answers = answers;
-        this.categoryUID = categoryUID;
+
+
+    public int getQuestionId() {
+        return questionId;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getCategory() {
+    public Category getCategory() {
         return category;
-    }
-
-    public int getCategoryUID() {
-        return categoryUID;
     }
 
     public String getQuestion() {
@@ -63,4 +60,19 @@ public final class QA {
         return answers;
     }
 
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
+    }
 }

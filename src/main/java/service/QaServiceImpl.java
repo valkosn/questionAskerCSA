@@ -80,9 +80,9 @@ public class QaServiceImpl implements QaService {
         QA qa = findById(id);
         if (!(qa == null)) {
             for (Answer answer : qa.getAnswers()) {
-                deleteAnswer(answer.getId());
+                deleteAnswer(answer.getAnswerId());
             }
-            qaDAO.deleteQuestion(qa.getId());
+            qaDAO.deleteQuestion(qa.getQuestionId());
         }
     }
 

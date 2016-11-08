@@ -1,18 +1,22 @@
 package controller;
 
-import com.fasterxml.jackson.annotation.JsonRawValue;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import enteties.QA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import service.CategoryService;
 import service.QaService;
 
+import java.io.IOException;
+
 /**
  * Created by Valko Serhii on 9/21/2016.
  */
-@RestController
+@Controller
+@ResponseBody
 @RequestMapping(value = "/config/questionManager**")
 public class QuestionManagerController {
 
@@ -42,8 +46,9 @@ public class QuestionManagerController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String save(@RequestBody QA question){
-        question.getId();
+    public @ResponseBody String save(@RequestBody String question) throws IOException {
+
+        new ObjectMapper().readValue(question, QA.class);
         return "";
     }
 

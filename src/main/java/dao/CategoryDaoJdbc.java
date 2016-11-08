@@ -55,7 +55,7 @@ public class CategoryDaoJdbc implements CategoryDao {
         List<QA> qaList = qaService.getAllQuestionByCategory(id);
         if (!(qaList == null) && !qaList.isEmpty()) {
             for (QA question : qaList) {
-                qaService.deleteQuestion(question.getId());
+                qaService.deleteQuestion(question.getQuestionId());
             }
         }
         try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM categories WHERE uid = ?")) {
