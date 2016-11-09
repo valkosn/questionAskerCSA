@@ -21,8 +21,14 @@
 
     <!-- DAO Beans -->
 
-    <bean id="qa_dao" class="dao.QaDaoJdbc" init-method="init">
+    <bean id="db_initializer" class="utils.DBInitializerImpl" init-method="init">
         <constructor-arg name="filePath" value="../../resources/db/QuestionsDB.json"/>
+        <constructor-arg name="connectionProvider" ref="connection_provider"/>
+        <property name="categoryService" ref="category_service"/>
+        <property name="qaService" ref="qa_service"/>
+    </bean>
+
+    <bean id="qa_dao" class="dao.QaDaoJdbc">
         <constructor-arg name="connectionProvider" ref="connection_provider"/>
     </bean>
 

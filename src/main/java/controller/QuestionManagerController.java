@@ -45,10 +45,10 @@ public class QuestionManagerController {
         return qaService.findById(id);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT}, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String save(@RequestBody String question) throws IOException {
-
-        new ObjectMapper().readValue(question, QA.class);
+        QA qa = new ObjectMapper().readValue(question, QA.class);
+        qaService.save(qa);
         return "";
     }
 

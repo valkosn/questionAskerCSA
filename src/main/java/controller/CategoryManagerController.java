@@ -1,10 +1,10 @@
 package controller;
 
+import enteties.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import service.CategoryService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletRequest;
  * Created by Valko Serhii on 9/21/2016.
  */
 @Controller
-@RequestMapping(value = "/config/categoryManager")
+@ResponseBody
+@RequestMapping(value = "/config/categoryManager**")
 public class CategoryManagerController {
 
     private CategoryService categoryService;
@@ -23,21 +24,20 @@ public class CategoryManagerController {
         this.categoryService = categoryService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String renderCategories(Model model){
+    @RequestMapping(method = RequestMethod.GET, value = "/")
+    public Model render(Model model){
         model.addAttribute("categories", categoryService.getAllCategories());
-        return "/config/categoryManager";
+        return model;
     }
 
     @RequestMapping(method = RequestMethod.POST, params = {"data"})
     public void addCategory(HttpServletRequest httpServletRequest){
         String data = httpServletRequest.getParameter("data");
-        categoryService.add(data);
+        categoryService.add(new Category(data));
     }
 
-    @RequestMapping(method = RequestMethod.POST, params = {"id"})
-    public void removeCategory(HttpServletRequest httpServletRequest){
-        String id = httpServletRequest.getParameter("id");
-        categoryService.remove(Integer.parseInt(id));
+    @RequestMapping(method = RequestMethod.DELETE, value = "{id}")
+    public void removeCategory(@PathVariable(value = "id") Integer id){
+        categoryService.remove(id);
     }
 }

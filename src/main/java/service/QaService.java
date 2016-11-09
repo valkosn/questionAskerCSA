@@ -13,7 +13,7 @@ public interface QaService {
 
     QA findByQuestion (String question);
 
-    boolean save (QA qa);
+    int save (QA qa);
 
     List<QA> getAllQuestionByCategory(String category);
 

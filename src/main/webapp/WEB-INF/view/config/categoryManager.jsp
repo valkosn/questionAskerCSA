@@ -29,7 +29,8 @@
                     success: function () {
                         location.reload(true);
                     },
-                    error: function () {
+                    error: function (xhr, resp, text) {
+                        console.log(xhr, resp, text);
                         debugger;
                     }
                 });
@@ -37,14 +38,13 @@
 
             var rmCat = function (catID) {
                 $.ajax({
-                    url: "/qa/config/categoryManager",
-                    type: "POST",
-                    data: {'categoryId': catID},
-                    dataType: "text",
+                    url: "/qa/config/categoryManager/" + catID,
+                    type: "DELETE",
                     success: function () {
                         location.reload(true);
                     },
-                    error: function () {
+                    error: function (xhr, resp, text) {
+                        console.log(xhr, resp, text);
                         debugger;
                     }
                 });

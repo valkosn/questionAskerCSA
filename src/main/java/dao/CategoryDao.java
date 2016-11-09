@@ -1,5 +1,7 @@
 package dao;
 
+import enteties.Category;
+
 import java.util.Map;
 
 /**
@@ -9,7 +11,9 @@ public interface CategoryDao {
 
     Map<Integer, String> getAllCategories();
 
-    void add(String category);
+    int add(String category);
 
     void delete(int id);
+
+    Category findByCategoryName(String categoryName);
 }

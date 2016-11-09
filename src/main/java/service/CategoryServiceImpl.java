@@ -1,6 +1,7 @@
 package service;
 
 import dao.CategoryDao;
+import enteties.Category;
 import java.util.Map;
 
 /**
@@ -20,16 +21,24 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void add(String category) {
-        Map<Integer, String> categories = getAllCategories();
-        if (!categories.containsValue(category)) {
-            categoryDAO.add(category);
+    public Category findByCategoryName (String categoryName){
+        return categoryDAO.findByCategoryName(categoryName);
+    }
+
+    @Override
+    public int add(Category category) {
+        int categoryId;
+        Category categoryFromDB = findByCategoryName(category.getCategoryName());
+        if (categoryFromDB == null) {
+            categoryId = categoryDAO.add(category.getCategoryName());
+        } else {
+            categoryId = categoryFromDB.getCategoryId();
         }
+        return categoryId;
     }
 
     @Override
     public void remove(int id) {
-
         categoryDAO.delete(id);
     }
 }

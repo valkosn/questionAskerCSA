@@ -3,8 +3,6 @@ package service;
 import dao.QaDao;
 import enteties.Answer;
 import enteties.QA;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -50,9 +48,8 @@ public class QaServiceImpl implements QaService {
     }
 
     @Override
-    public boolean save(QA qa) {
-
-        throw new NotImplementedException();
+    public int save(QA qa) {
+        return qaDAO.save(qa);
     }
 
     @Override

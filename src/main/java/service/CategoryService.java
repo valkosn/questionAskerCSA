@@ -1,5 +1,7 @@
 package service;
 
+import enteties.Category;
+
 import java.util.Map;
 
 /**
@@ -8,7 +10,9 @@ import java.util.Map;
 public interface CategoryService {
     Map<Integer, String> getAllCategories();
 
-    void add(String category);
+    Category findByCategoryName(String categoryName);
+
+    int add(Category category);
 
     void remove(int id);
 }
