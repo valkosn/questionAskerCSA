@@ -6,12 +6,12 @@ function getCorrectAnswer(questionNumber) {
     var result = null;
     $.ajax({
         url: "/qa/evaluate",
-        type: "POST",
+        type: "GET",
         async: false,
-        data: {'data': data[questionNumber].id},
+        data: {'data': data[questionNumber].questionId},
         dataType: "text",
-        success: function (resData) {
-            result = resData.hashCode();
+        success: function (data) {
+            result = data.hashCode();
         },
         error: function () {
             debugger;

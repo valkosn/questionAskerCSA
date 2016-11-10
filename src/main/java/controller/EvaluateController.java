@@ -22,7 +22,7 @@ public class EvaluateController {
         this.qaService = qaService;
     }
 
-    @RequestMapping(value = "/evaluate", method = RequestMethod.POST)
+    @RequestMapping(value = "/evaluate", method = RequestMethod.GET)
     public HttpServletResponse evaluate (HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
 
         int questionID = Integer.parseInt(httpServletRequest.getParameter("data"));
