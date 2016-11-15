@@ -1,54 +1,103 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-    <head>
-        <title>Question Asker</title>
-        <script src="/qa/resources/lib/jquery-3.1.0.min.js" type="text/javascript"></script>
-    </head>
+<head>
+    <title>Question Asker</title>
+    <link href="/qa/resources/css/main.css" rel="stylesheet" type="text/css">
+    <link href="/qa/resources/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/qa/resources/lib/DataTables-1.10.12/media/css/jquery.dataTables.min.css" rel="stylesheet"
+          type="text/css">
+    <link href="/qa/resources/lib/DataTables-1.10.12/media/css/dataTables.bootstrap.min.css" rel="stylesheet"
+          type="text/css">
 
-    <body>
-        <div id="delete_container">
-            <c:forEach items="${categories}" var="cat">
-                <span>${cat.value}</span>
-                <input value="X" type="button" onclick="rmCat(${cat.key})"/> <br>
-            </c:forEach>
-        </div>
+    <script src="/qa/resources/lib/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="/qa/resources/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/qa/resources/lib/DataTables-1.10.12/media/js/jquery.dataTables.min.js"
+            type="text/javascript"></script>
+    <script src="/qa/resources/lib/DataTables-1.10.12/media/js/dataTables.bootstrap.min.js"
+            type="text/javascript"></script>
 
-        <div id="add_container">
-            <input id="new_category" name="newCategory" value="Category" type="text">
-            <input id="add_button" name="addButton"  value="Add" type="button" onclick="addNewCat()">
-        </div>
+</head>
 
-        <script>
-            var addNewCat = function () {
-                $.ajax({
-                    url: "/qa/config/categoryManager",
-                    type: "POST",
-                    data: {'data': $("#new_category").val()},
-                    dataType: "text",
-                    success: function () {
-                        location.reload(true);
-                    },
-                    error: function (xhr, resp, text) {
-                        console.log(xhr, resp, text);
-                        debugger;
-                    }
-                });
-            };
+<header>
+    <ul class="nav nav-pills">
+        <li role="presentation"><a href="/qa/start">Home</a></li>
+        <li role="presentation"><a href="/qa/config/questionManager/">Question Manager</a></li>
+        <li role="presentation" class="active"><a href="/qa/config/categoryManager/">Category Manager</a></li>
+    </ul>
+</header>
 
-            var rmCat = function (catID) {
-                $.ajax({
-                    url: "/qa/config/categoryManager/" + catID,
-                    type: "DELETE",
-                    success: function () {
-                        location.reload(true);
-                    },
-                    error: function (xhr, resp, text) {
-                        console.log(xhr, resp, text);
-                        debugger;
-                    }
-                });
-            };
-        </script>
-    </body>
+<body>
+<div id="deleteContainer" class="form-horizontal col-lg-3">
+    <div class="input-group">
+        <input id="new_category" class="form-control" name="newCategory" placeholder="Category" type="text">
+        <span class="input-group-btn">
+        <button id="add_button" class="btn btn-primary" name="addButton" type="button" onclick="addNewCat()">
+            Add new category
+        </button>
+    </span>
+    </div>
+</div>
+
+<div id="container">
+    <table id="categoryTable" class="display">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${categories}" var="cat">
+            <tr>
+                <td><span class="">${cat.key}</span></td>
+                <td><span class="">${cat.value}</span></td>
+                <td>
+                    <button class="btn btn-danger" type="button" onclick="rmCat(${cat.key})">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function addNewCat() {
+        $.ajax({
+            url: "/qa/config/categoryManager",
+            type: "POST",
+            data: {'data': $("#new_category").val()},
+            dataType: "text",
+            success: function () {
+                location.reload(true);
+            },
+            error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+                debugger;
+            }
+        });
+    }
+
+    function rmCat(catID) {
+        $.ajax({
+            url: "/qa/config/categoryManager/" + catID,
+            type: "DELETE",
+            success: function () {
+                location.reload(true);
+            },
+            error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+                debugger;
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('#categoryTable').DataTable({});
+    });
+</script>
+</body>
 </html>

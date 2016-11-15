@@ -3,7 +3,10 @@ package controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import service.CategoryService;
 import service.QaService;
 
@@ -26,7 +29,7 @@ public class StartController {
         this.qaService = qaService;
     }
 
-    @RequestMapping("/start")
+    @RequestMapping(method = RequestMethod.GET, value = "/start")
     public String index(Model model) {
         model.addAttribute("maxQaAmount", qaService.getQuestionAmount());
         model.addAttribute("data", "undefined");

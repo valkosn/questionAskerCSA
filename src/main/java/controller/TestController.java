@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import service.QaService;
 import utils.JsonFileConverter;
 
@@ -25,7 +27,7 @@ public class TestController {
         this.qaService = qaService;
     }
 
-    @RequestMapping("/test")
+    @RequestMapping(method = RequestMethod.GET, value = "/test")
     public String test(Model model, HttpServletRequest httpServletRequest) {
         String testType = httpServletRequest.getParameter("testType");
         int questionsAmount = Integer.parseInt(httpServletRequest.getParameter("questionsAmount"));

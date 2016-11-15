@@ -3,46 +3,141 @@
 <html>
 <head>
     <title>Question Asker</title>
-    <script src="/qa/resources/lib/jquery-3.1.0.min.js" type="text/javascript"></script>
     <link href="/qa/resources/css/main.css" rel="stylesheet" type="text/css">
-    <link href="/qa/resources/lib/chosen_v1.6.2/chosen.css" rel="stylesheet" type="text/css">
-    <script src="/qa/resources/lib/chosen_v1.6.2/chosen.jquery.js" type="text/javascript"></script>
-    <script src="/qa/resources/js/chosenConfig.js" type="text/javascript"></script>
+    <link href="/qa/resources/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/qa/resources/lib/DataTables-1.10.12/media/css/jquery.dataTables.min.css" rel="stylesheet"
+          type="text/css">
+    <link href="/qa/resources/lib/DataTables-1.10.12/media/css/dataTables.bootstrap.min.css" rel="stylesheet"
+          type="text/css">
+
+    <script src="/qa/resources/lib/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="/qa/resources/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/qa/resources/lib/DataTables-1.10.12/media/js/jquery.dataTables.min.js"
+            type="text/javascript"></script>
+    <script src="/qa/resources/lib/DataTables-1.10.12/media/js/dataTables.bootstrap.min.js"
+            type="text/javascript"></script>
 
 </head>
+<header>
+    <ul class="nav nav-pills">
+        <li role="presentation"><a href="/qa/start">Home</a></li>
+        <li role="presentation" class="active"><a href="/qa/config/questionManager/">Question Manager</a></li>
+        <li role="presentation"><a href="/qa/config/categoryManager/">Category Manager</a></li>
+        <li role="presentation"><a id="addNewQuestionButton" type="button" class="btn btn-primary" data-toggle="modal"
+                                   data-target="#questionModal"
+                                   onclick="newQ()">Add new question</a></li>
+    </ul>
+</header>
 <body>
 
-<div id="question_form_holder"></div>
+<%--<button id="addNewQuestionButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#questionModal"
+        onclick="newQ()">
+    Add new question
+</button>--%>
 
-<form id="question_form_template" class="question_form" style="display: none">
+<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="questionModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="questionModalLabel">Add new question</h4>
+            </div>
+
+            <div class="modal-body" id="questionModalHolder">
+                <!-- Question holder -->
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Close
+                </button>
+
+                <button type="button" class="btn btn-success" onclick="save()">
+                    Save changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="question_form_holder" class="container center-block"></div>
+
+<form id="question_form_template" class="question_form form-horizontal" style="display: none">
     <div>
         <input id="question_id" name="questionId" type="hidden">
     </div>
-    <select id="category_template" name="category.categoryId" title="Category">
-        <c:forEach items="${categories}" var="cat">
-            <option id="category_${cat.key}" value="${cat.key}">${cat.value}</option>
-        </c:forEach>
-    </select> <br/>
-    <input id="question_template" class="control_container_element" name="question" type="text" value=""
-           title="Question"/> <br/>
 
-    <input class="control_container_element" type=button value="+" onclick="addAnswerField()"><br/>
-    <div id="answer_container_template">
-        <input id="answer_0" class="control_container_element" name="answers.answer" type="text" value=""/>
+    <div class="form-group">
+        <label for="category_template" id="category_label_template" class="col-lg-2 control-label">Category</label>
+        <div class="col-lg-10">
+            <select id="category_template" class="form-control" name="category.categoryId" title="Category">
+                <c:forEach items="${categories}" var="cat">
+                    <option id="category_${cat.key}" value="${cat.key}">${cat.value}</option>
+                </c:forEach>
+            </select>
+        </div>
     </div>
-    <input class="control_container_element" type="button" value="-" onclick="delAnswerField()"><br/>
-    <input class="control_container_element" type="button" value="Save" onclick="save()"/>
-    <input class="control_container_element" type="button" value="Cancel" onclick="cancel()"/>
+
+    <div class="form-group">
+        <label for="question_template" id="question_label_template" class="col-lg-2 control-label">Question</label>
+        <div class="col-lg-10">
+            <input id="question_template" class="form-control" name="question" type="text" placeholder="Enter question"
+                   title="Question"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="button" class="btn btn-primary" id="addAnswer" onclick="addAnswerField()">
+            Add answer field
+        </button>
+    </div>
+
+    <div id="answer_container_template">
+
+        <div class="form-group" id="answerRow_0">
+            <label for="answer_0" id="label_0" class="col-lg-2 control-label">Answer</label>
+            <div class="col-lg-9 input-group">
+                <input class="form-control" id="answer_0" name="answer" type="text" placeholder="Enter answer"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-danger" id="delButton_0" type="button" onclick="delAnswerField(0)">
+                        -
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
 </form>
 
-<div>
-    <input class="control_container_element" type="button" value="Add new question" onclick="newQ()"> <br/>
-    <c:forEach items="${questions}" var="question">
-        <input class="control_container_element" type="button" value="Edit" onclick="edit(${question.questionId})"/>
-        <input class="control_container_element" type="button" value="Delete"
-               onclick="deleteQ(${question.questionId})"/>
-        <span>${question.question}</span><br/>
-    </c:forEach>
+<div class="container">
+    <table id="questionTable" class="display">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Category</th>
+            <th>Question</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${questions}" var="question">
+            <tr>
+                <td><span class="">${question.questionId}</span></td>
+                <td><c:out value="${categories[question.category.categoryId]}"/></td>
+                <td><span class="">${question.question}</span></td>
+                <td>
+                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#questionModal"
+                            onclick="edit(${question.questionId})">
+                        Edit
+                    </button>
+                    <button class="btn btn-danger" type="button" onclick="deleteQ(${question.questionId})">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 </div>
 
 <script>
@@ -60,7 +155,7 @@
                 categoryId: questionForm.find("#category").val()
             }
         };
-        questionForm.find("#answer_container").children().each(function () {
+        questionForm.find("input[name='answer']").each(function () {
             var answer = {answer: this.value};
             question.answers.push(answer);
         });
@@ -120,14 +215,23 @@
 
     function addAnswerField() {
         var answerContainer = $("#answer_container");
-        var answerClone = answerContainer.children().last().clone().val("");
+        var answerClone = answerContainer.children().last().clone();
         var idParts = answerClone.attr('id').split('_');
-        answerClone.attr('id', idParts[0] + "_" + ++idParts[1]);
+        var currantId = idParts[1];
+        var nextId = parseInt(currantId) + 1;
+        answerClone.attr('id', idParts[0] + "_" + nextId);
+        answerClone.find("#label_" + currantId).attr("id", "label_" + nextId).attr("for", "answer_" + nextId);
+        answerClone.find("#answer_" + currantId).prop("id", "answer_" + nextId).val("");
+        answerClone.find("#delButton_" + currantId).prop("id", "delButton_" + nextId).attr("onclick", "delAnswerField(" + nextId + ")");
         answerContainer.append(answerClone);
     }
 
     function delAnswerField(id) {
-        $("#answer_" + id).remove();
+        if (id == 0) {
+            alert("Can't remove true answer")
+        } else {
+            $("#answerRow_" + id).remove();
+        }
     }
 
     function cancel() {
@@ -138,6 +242,7 @@
         clearHolder();
         fillHolder();
         if (qa != null) {
+            $("#questionModalLabel").text("Edit question");
             $("#question_id").val(qa.questionId);
             $("#category").find("#category_" + qa.category.categoryId).attr("selected", true);
             $("#question").prop("value", qa.question);
@@ -147,48 +252,31 @@
                     addAnswerField();
                 }
             }
+        } else {
+            $("#questionModalLabel").text("Add new question");
         }
-        createChosen();
-    }
-
-    //TODO: fix it...
-    function createChosen() {
-        $(".single-select").chosen({
-            width: "10%",
-            disable_search: "true"
-        });
     }
 
     function fillHolder() {
         var questionForm = $("#question_form_template").clone();
         questionForm.prop("id", "question_form");
-        questionForm.children("#category_template").prop("id", "category").attr("class", "single-select");
-        questionForm.children("#question_template").prop("id", "question");
-        questionForm.children("#answer_container_template").prop("id", "answer_container");
-        $("#question_form_holder").append(questionForm);
+        questionForm.find("#category_template").prop("id", "category");
+        questionForm.find("#category_label_template").prop("for", "category");
+        questionForm.find("#question_template").prop("id", "question");
+        questionForm.find("#question_label_template").prop("for", "question");
+        questionForm.find("#answer_container_template").prop("id", "answer_container");
+        $("#questionModalHolder").append(questionForm);
         $("#question_form").css("display", "block");
 
     }
 
     function clearHolder() {
-        $("#question_form_holder").children().remove();
+        $("#questionModalHolder").children().remove();
     }
 
-    $.fn.serializeObject = function () {
-        var o = {};
-        var a = this.serializeArray();
-        $.each(a, function () {
-            if (o[this.name]) {
-                if (!o[this.name].push) {
-                    o[this.name] = [o[this.name]];
-                }
-                o[this.name].push(this.value || '');
-            } else {
-                o[this.name] = this.value || '';
-            }
-        });
-        return o;
-    };
+    $(document).ready(function () {
+        $('#questionTable').DataTable({});
+    });
 
 </script>
 </body>

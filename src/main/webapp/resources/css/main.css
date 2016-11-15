@@ -1,66 +1,15 @@
-body {
-    padding: 15px;
-    height: 100%;
+header {
+    padding-bottom: 40px;
 }
 
-li {
-    cursor: pointer;
+#addNewQuestionButton, #deleteContainer{
+    margin-bottom: 40px;
+}
+.row {
+    padding-bottom: 40px;
 }
 
-label#title {
-    font-size: 17pt;
-    padding: 5px;
-}
-
-.question {
-    padding: 5px;
-    font-size: 15px;
-}
-
-.questions {
-}
-
-.answers {
-    cursor: pointer;
-}
-
-.title {
-    font-size: 12px;
-}
-
-.title,
-.question {
-    display: block;
-}
-
-.header_message {
-    color: red;
-    font-size: 10px;
-    text-align: center;
-}
-
-div#result_message {
-    display: inline-block;
-}
-
-.control_container {
-    padding-top: 15px;
-}
-
-.control_container_element {
-    height: 24px;
-    border: 1px solid #aaa;
-    border-radius: 5px;
-}
-
-.question_form {
-    position: fixed;
-    left: 30%;
-    width: 640px;
-    height: 480px;
-    background: darkgray;
-    padding: 5px;
-    border: solid 1px black;
-    top: 40px;
-    display: block;
+#addAnswer {
+    margin-left: 20px;
+    margin-top: 20px;
 }
