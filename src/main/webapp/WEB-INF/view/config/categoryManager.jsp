@@ -28,7 +28,7 @@
 </header>
 
 <body>
-<div id="deleteContainer" class="form-horizontal col-lg-3">
+<div id="addContainer" class="form-horizontal col-lg-3">
     <div class="input-group">
         <input id="new_category" class="form-control" name="newCategory" placeholder="Category" type="text">
         <span class="input-group-btn">
@@ -39,29 +39,31 @@
     </div>
 </div>
 
-<div id="container">
-    <table id="categoryTable" class="display">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Category</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${categories}" var="cat">
+<div class="container">
+    <div class="row">
+        <table id="categoryTable" class="table table-striped" cellspacing="0" width="100%">
+            <thead>
             <tr>
-                <td><span class="">${cat.key}</span></td>
-                <td><span class="">${cat.value}</span></td>
-                <td>
-                    <button class="btn btn-danger" type="button" onclick="rmCat(${cat.key})">
-                        Delete
-                    </button>
-                </td>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Actions</th>
             </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <c:forEach items="${categories}" var="cat">
+                <tr>
+                    <td>${cat.key}</td>
+                    <td>${cat.value}</td>
+                    <td>
+                        <button class="btn btn-danger" type="button" onclick="rmCat(${cat.key})">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script>
@@ -96,7 +98,8 @@
     }
 
     $(document).ready(function () {
-        $('#categoryTable').DataTable({});
+        $('#categoryTable').DataTable({
+        });
     });
 </script>
 </body>

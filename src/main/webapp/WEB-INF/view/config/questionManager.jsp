@@ -30,11 +30,6 @@
 </header>
 <body>
 
-<%--<button id="addNewQuestionButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#questionModal"
-        onclick="newQ()">
-    Add new question
-</button>--%>
-
 <div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="questionModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -110,34 +105,40 @@
 </form>
 
 <div class="container">
-    <table id="questionTable" class="display">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Category</th>
-            <th>Question</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${questions}" var="question">
+    <div class="row">
+        <table id="questionTable" class="table table-striped" cellspacing="0" width="100%">
+            <thead>
             <tr>
-                <td><span class="">${question.questionId}</span></td>
-                <td><c:out value="${categories[question.category.categoryId]}"/></td>
-                <td><span class="">${question.question}</span></td>
-                <td>
-                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#questionModal"
-                            onclick="edit(${question.questionId})">
-                        Edit
-                    </button>
-                    <button class="btn btn-danger" type="button" onclick="deleteQ(${question.questionId})">
-                        Delete
-                    </button>
-                </td>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Question</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <c:forEach items="${questions}" var="question">
+                <tr>
+                    <td><span class="">${question.questionId}</span></td>
+                    <td><c:out value="${categories[question.category.categoryId]}"/></td>
+                    <td><span class="">${question.question}</span></td>
+                    <td>
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#questionModal"
+                                onclick="edit(${question.questionId})">
+                            Edit
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" type="button" onclick="deleteQ(${question.questionId})">
+                            Delete
+                        </button>
+
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script>
@@ -275,7 +276,9 @@
     }
 
     $(document).ready(function () {
-        $('#questionTable').DataTable({});
+        $('#questionTable').dataTable({
+
+        });
     });
 
 </script>

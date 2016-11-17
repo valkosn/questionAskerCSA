@@ -97,9 +97,9 @@
 
     </script>
 </form>
-<div id="test_answers"></div>
+<div id="test_answers" class="container"></div>
 
-<div id="question_holder_" class="row" style="display: none;">
+<div id="question_holder_" class="container" style="display: none;">
     <label id="title_" class="title">Question: {{qn/qa}}
         <span id="question_" class="question"></span>
     </label>
@@ -114,14 +114,14 @@
     </div>
 </div>
 
-<div id="time_holder"></div>
+<div id="time_holder" class="container"></div>
 
 <label id="answer_holder_" class="answers" style="display: none;">
     <input type="radio" name="answer_"/>
     <span id="answer_text_"></span>
 </label>
 
-<div id="result_screen" style="display: none;">
+<div id="result_screen" class="container" style="display: none;">
 
     <div id="results_holder">
         <ul id="results"></ul>
