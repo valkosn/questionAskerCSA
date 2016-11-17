@@ -2,9 +2,10 @@ header {
     padding-bottom: 40px;
 }
 
-#addNewQuestionButton, #addContainer{
+#addNewQuestionButton, #addContainer {
     margin-bottom: 40px;
 }
+
 .row {
     padding-bottom: 40px;
 }
@@ -12,4 +13,8 @@ header {
 #addAnswer {
     margin-left: 20px;
     margin-top: 20px;
+}
+
+textarea {
+    resize: none;
 }

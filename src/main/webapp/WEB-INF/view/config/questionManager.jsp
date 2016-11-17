@@ -77,8 +77,8 @@
     <div class="form-group">
         <label for="question_template" id="question_label_template" class="col-lg-2 control-label">Question</label>
         <div class="col-lg-10">
-            <input id="question_template" class="form-control" name="question" type="text" placeholder="Enter question"
-                   title="Question"/>
+            <textarea id="question_template" class="form-control" name="question" placeholder="Enter question"
+                   title="Question"> </textarea>
         </div>
     </div>
 

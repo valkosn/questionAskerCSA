@@ -53,7 +53,9 @@
 
         <div class="row form-inline">
 
-            <input id="start" class="col-lg-2 btn btn-default" type="submit" value="Start">
+            <button id="start" class="col-lg-2 btn btn-default" type="submit">
+                Start
+            </button>
 
             <select id="test_type" name="testType" class="col-lg-2 form-control" title="Test type">
                 <option value="normal" selected="selected">Normal</option>
@@ -107,10 +109,15 @@
     <label class="title">Choice the answer:</label>
     <div id="answer_container_"></div>
     <div class="control_container">
-        <input name="previous_question" type="button" value="Previous question" onclick="getPreviousQuestion()"
-               disabled/>
-        <input name="next_question" type="button" value="Next question" onclick="getNextQuestion()"/>
-        <input name="finish" type="button" value="Result" onclick="renderResults()" style="display: none;"/>
+        <button name="previous_question" class="btn btn-default" type="button" onclick="getPreviousQuestion()"
+                disabled>Previous question
+        </button>
+        <button name="next_question" class="btn btn-default" type="button" onclick="getNextQuestion()">
+            Next question
+        </button>
+        <button name="finish" class="btn btn-default" type="button" onclick="renderResults()" style="display: none;">
+            Result
+        </button>
     </div>
 </div>
 
@@ -128,10 +135,12 @@
     </div>
 
     <div class="control_container">
-        <input id="evaluate" class="control_container_element" type="button" value="Evaluate"
-               onclick="evaluateResults()"/>
-        <input id="new_attempt" class="control_container_element" type="button" value="New attempt"
-               onclick="newAttempt()"/>
+        <button id="evaluate" class="btn btn-default" type="button" onclick="evaluateResults()">
+            Evaluate
+        </button>
+        <button id="new_attempt" class="btn btn-default" type="button" onclick="newAttempt()">
+            New attempt
+        </button>
         <div id="result_message"></div>
     </div>
 </div>
