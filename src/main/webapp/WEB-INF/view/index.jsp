@@ -46,9 +46,9 @@
 
     <div id="start_screen_holder" class="container" rel="main">
 
-        <h1><strong>Welcome to Question Asker!!!</strong></h1>
+        <h1 class="text-center"><strong>Welcome to Question Asker!!!</strong></h1>
 
-        <h4>If you are ready, press START. Good luck!</h4>
+        <h4 class="text-center">If you are ready, press START. Good luck!</h4>
 
         <div class="form-inline control_container">
 

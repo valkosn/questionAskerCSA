@@ -22,7 +22,6 @@ h4,
 }
 
 h1 {
-    text-align: center;
     font-size: 70px;
     letter-spacing: 2px;
     margin-bottom: 30px;
@@ -33,7 +32,6 @@ h1 {
 }
 
 h4 {
-    text-align: center;
     font-size: 30px;
     margin-bottom: 30px;
 }
