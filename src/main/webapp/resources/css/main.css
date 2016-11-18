@@ -1,13 +1,129 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body{
+    margin-bottom: 10vh;
+}
+
 header {
-    padding-bottom: 40px;
+    margin-bottom: 40px;
+}
+
+h1,
+h4,
+.control_element,
+.nav,
+.footer,
+.result_massage {
+    font-family: 'Bangers', cursive;
+    letter-spacing: 1px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 70px;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    color: rgba(0,0,0,0.6);
+    text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+    0px -5px 35px rgba(255,255,255,0.3);
+
+}
+
+h4 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+textarea {
+    resize:vertical;
+    max-height:200px;
+    min-height:100px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10vh;
+}
+
+footer hr {
+    border-color: #2b2b2b;
+}
+
+footer p {
+    font-size: 20px;
+}
+
+.row {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.nav > li > a {
+    font-size: 22px;
+}
+
+.title,
+.time,
+.answers,
+.results {
+    text-align: left;
+    font-size: 20px;
+
+}
+
+.answers {
+    margin-bottom: 10px;
+ }
+
+.result_massage {
+    margin-top: 100px;
+    font-size: 35px;
+}
+
+
+.control_container{
+    text-align: center;
+}
+
+.control_element {
+    font-size: 20px;
+    margin: 10px;
+    width:  200px !important;
+    height: 50px;
+}
+
+.chosen-container {
+    height: 50px;
+}
+
+.btn-group-vertical > .btn, .btn-group > .btn{
+    float: none;
+}
+
+select.form-control + .chosen-container-multi .chosen-choices {
+    height: inherit;
+}
+
+.chosen-results{
+    font-size: 20px !important;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice span {
+    font-size: 20px
+}
+
+select.form-control + .chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+    padding: 7px 0px !important;
 }
 
 #addNewQuestionButton, #addContainer {
     margin-bottom: 40px;
-}
-
-.row {
-    padding-bottom: 40px;
 }
 
 #addAnswer {
@@ -15,6 +131,23 @@ header {
     margin-top: 20px;
 }
 
-textarea {
-    resize: none;
+.nav > li > a:focus, .nav > li > a:hover {
+    background: rgba(51, 122, 183, .1);
 }
+
+@media only screen and (max-width: 1200px){
+
+}
+
+@media only screen and (max-width: 992px){
+
+}
+
+@media only screen and (max-width: 767px){
+
+}
+
+@media only screen and (max-width: 480px){
+
+}
+

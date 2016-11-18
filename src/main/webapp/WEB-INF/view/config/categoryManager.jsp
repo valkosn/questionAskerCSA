@@ -3,12 +3,14 @@
 <html>
 <head>
     <title>Question Asker</title>
-    <link href="/qa/resources/css/main.css" rel="stylesheet" type="text/css">
     <link href="/qa/resources/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/qa/resources/lib/DataTables-1.10.12/media/css/jquery.dataTables.min.css" rel="stylesheet"
           type="text/css">
     <link href="/qa/resources/lib/DataTables-1.10.12/media/css/dataTables.bootstrap.min.css" rel="stylesheet"
           type="text/css">
+    <link href="/qa/resources/css/main.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
+
 
     <script src="/qa/resources/lib/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="/qa/resources/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
@@ -19,6 +21,8 @@
 
 </head>
 
+<body>
+
 <header>
     <ul class="nav nav-pills">
         <li role="presentation"><a href="/qa/start">Home</a></li>
@@ -27,7 +31,6 @@
     </ul>
 </header>
 
-<body>
 <div id="addContainer" class="form-horizontal col-lg-3">
     <div class="input-group">
         <input id="new_category" class="form-control" name="newCategory" placeholder="Category" type="text">
@@ -65,6 +68,13 @@
         </table>
     </div>
 </div>
+
+<footer class="footer">
+    <div class="container">
+        <hr>
+        <p class="pull-right">Design by Rebok inc 2016</p>
+    </div>
+</footer>
 
 <script>
     function addNewCat() {
