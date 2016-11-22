@@ -28,17 +28,34 @@
         <li role="presentation"><a href="/qa/start">Home</a></li>
         <li role="presentation"><a href="/qa/config/questionManager/">Question Manager</a></li>
         <li role="presentation" class="active"><a href="/qa/config/categoryManager/">Category Manager</a></li>
+        <li role="presentation"><a id="addNewCategoryButton" data-toggle="modal" data-target="#categoryModal">Add new category</a></li>
     </ul>
 </header>
 
-<div id="addContainer" class="form-horizontal col-lg-3">
-    <div class="input-group">
-        <input id="new_category" class="form-control" name="newCategory" placeholder="Category" type="text">
-        <span class="input-group-btn">
-        <button id="add_button" class="btn btn-primary" name="addButton" type="button" onclick="addNewCat()">
-            Add new category
-        </button>
-    </span>
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center" id="categoryModalLabel">Add new category</h4>
+            </div>
+
+            <div class="modal-body" id="categoryModalHolder">
+                <!-- Question holder -->
+                <input id="new_category" class="form-control" name="newCategory" placeholder="Category" type="text">
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Close
+                </button>
+
+                <button type="button" class="btn btn-success" onclick="addNewCat()">
+                    Save changes
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 

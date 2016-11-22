@@ -52,41 +52,45 @@
 
         <div class="form-inline control_container">
 
-            <select id="test_type" name="testType" class="form-control control_element" title="Test type">
-                <option value="normal" selected="selected">Normal</option>
-                <option value="offline">Offline</option>
-            </select>
+            <div class="row">
+                <select id="test_type" name="testType" class="form-control control_element" title="Test type">
+                    <option value="normal" selected="selected">Normal</option>
+                    <option value="offline">Offline</option>
+                </select>
 
-            <select id="categories" name="categories" class="form-control control_element" title="Categories"
-                    data-placeholder="Choose a category..." multiple="multiple">
-                <c:forEach items="${categories}" var="cat">
-                    <option value="${cat.key}">${cat.value}</option>
-                </c:forEach>
-            </select>
+                <select id="questions_amount" name="questionsAmount" class="form-control control_element"
+                        title="Amount of questions">
+                    <option value="5" selected="selected">5 questions</option>
+                    <option value="10">10 questions</option>
+                    <option value="25">25 questions</option>
+                    <option value="50">50 questions</option>
+                    <option value="100">100 questions</option>
+                    <option value="${maxQaAmount}">${maxQaAmount} questions</option>
+                </select>
 
-            <select id="questions_amount" name="questionsAmount" class="form-control control_element"
-                    title="Amount of questions">
-                <option value="5" selected="selected">5 questions</option>
-                <option value="10">10 questions</option>
-                <option value="25">25 questions</option>
-                <option value="50">50 questions</option>
-                <option value="100">100 questions</option>
-                <option value="${maxQaAmount}">${maxQaAmount} questions</option>
-            </select>
+                <select id="time_per_question" name="timePerQuestion" class="form-control control_element"
+                        title="Time per question">
+                    <option value="1">1 sec/question</option>
+                    <option value="30">30 sec/question</option>
+                    <option value="60">1 min/question</option>
+                    <option value="120" selected="selected">2 min/question</option>
+                    <option value="300">5 min/question</option>
+                    <option value="600">10 min/question</option>
+                    <option value="-1">unlimited time</option>
+                </select>
+            </div>
 
-            <select id="time_per_question" name="timePerQuestion" class="form-control control_element"
-                    title="Time per question">
-                <option value="1">1 sec/question</option>
-                <option value="30">30 sec/question</option>
-                <option value="60">1 min/question</option>
-                <option value="120" selected="selected">2 min/question</option>
-                <option value="300">5 min/question</option>
-                <option value="600">10 min/question</option>
-                <option value="-1">unlimited time</option>
-            </select>
+            <div class="row">
+                <select id="categories" name="categories" class="form-control control_element" title="Categories"
+                        data-placeholder="Choose a category..." multiple="multiple">
+                    <c:forEach items="${categories}" var="cat">
+                        <option value="${cat.key}">${cat.value}</option>
+                    </c:forEach>
+                </select>
+            </div>
 
             <div class="row control_container">
-                <button id="start" class="btn btn-default control_element" type="submit">
+                <button id="start" class="btn btn-success control_element" type="submit">
                     Start
                 </button>
             </div>
@@ -113,8 +117,8 @@
     </div>
 
     <div class="row">
-        <div id="answer_container_" class="btn-group" data-toggle="buttons">
-            <label id="answer_holder_" class="answers btn btn-default" style="display: none;">
+        <div id="answer_container_" class="">
+            <label id="answer_holder_" class="answers" style="display: none;">
                 <input type="radio" name="answer_"/>
                 <span id="answer_text_"></span>
             </label>
@@ -122,14 +126,14 @@
     </div>
 
     <div class="control_container">
-        <button name="previous_question" class="btn btn-default control_element" type="button"
+        <button name="previous_question" class="btn btn-primary control_element" type="button"
                 onclick="getPreviousQuestion()"
                 disabled>Previous question
         </button>
-        <button name="next_question" class="btn btn-default control_element" type="button" onclick="getNextQuestion()">
+        <button name="next_question" class="btn btn-primary control_element" type="button" onclick="getNextQuestion()">
             Next question
         </button>
-        <button name="finish" class="btn btn-default control_element" type="button" onclick="renderResults()"
+        <button name="finish" class="btn btn-warning control_element" type="button" onclick="renderResults()"
                 style="display: none;">
             Result
         </button>
@@ -141,16 +145,15 @@
 
 <div id="result_screen" class="container" style="display: none;">
 
-    <div id="results_holder" class="results {
-">
+    <div id="results_holder" class="results">
         <ul id="results"></ul>
     </div>
 
     <div class="control_container">
-        <button id="evaluate" class="btn btn-default control_element" type="button" onclick="evaluateResults()">
+        <button id="evaluate" class="btn btn-success control_element" type="button" onclick="evaluateResults()">
             Evaluate
         </button>
-        <button id="new_attempt" class="btn btn-default control_element" type="button" onclick="newAttempt()">
+        <button id="new_attempt" class="btn btn-danger control_element" type="button" onclick="newAttempt()">
             New attempt
         </button>
         <div id="result_message" class="result_massage"></div>

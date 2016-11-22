@@ -4,8 +4,9 @@
 $(function () {
     $("#categories").chosen({
         max_selected_options: "5",
-        // width: "25%"
-    });
+        width: "auto"
+
+});
 
     $(".single-select").chosen({
         width: "10%",
