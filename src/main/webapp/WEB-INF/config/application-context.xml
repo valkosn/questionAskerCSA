@@ -16,7 +16,7 @@
      -->
 
     <!--<bean id="qa_dao" class="dao.QaDaoFileDB" init-method="init">-->
-        <!--<constructor-arg value="../../resources/db/QuestionsDB.json"/>-->
+    <!--<constructor-arg value="../../resources/db/QuestionsDB.json"/>-->
     <!--</bean>-->
 
     <!-- DAO Beans -->
@@ -32,8 +32,12 @@
         <constructor-arg name="connectionProvider" ref="connection_provider"/>
     </bean>
 
-    <bean id="category_dao" class="dao.CategoryDaoJdbc">
-        <property name="connection" ref="connection_provider"/>
+    <!--<bean id="category_dao" class="dao.CategoryDaoJdbc">-->
+        <!--<property name="connection" ref="connection_provider"/>-->
+        <!--<property name="qaService" ref="qa_service"/>-->
+    <!--</bean>-->
+
+    <bean id="category_dao" class="dao.CategoryDaoJpaHibernate">
         <property name="qaService" ref="qa_service"/>
     </bean>
 

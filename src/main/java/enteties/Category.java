@@ -2,13 +2,21 @@ package enteties;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import javax.persistence.*;
+
 /**
  * Created by Valko Serhii on 11/4/2016.
  */
+@Entity()
+@Table(name = "categories")
 public class Category {
 
+    @Id
+    @Column(name = "uid")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int categoryId;
 
+    @Column(name = "category_value")
     private String categoryName;
 
     public Category() {
