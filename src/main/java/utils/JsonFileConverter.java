@@ -2,7 +2,7 @@ package utils;
 
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import enteties.QA;
+import entity.QA;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;

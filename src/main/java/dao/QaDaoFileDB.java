@@ -1,6 +1,6 @@
 package dao;
 
-import enteties.QA;
+import entity.QA;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import utils.JsonFileConverter;
 

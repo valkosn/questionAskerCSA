@@ -1,8 +1,8 @@
 package utils;
 
 import dao.QaDaoJdbc;
-import enteties.Category;
-import enteties.QA;
+import entity.Category;
+import entity.QA;
 import org.apache.log4j.Logger;
 import service.CategoryService;
 import service.QaService;

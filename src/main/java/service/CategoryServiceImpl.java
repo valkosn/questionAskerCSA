@@ -1,7 +1,7 @@
 package service;
 
 import dao.CategoryDao;
-import enteties.Category;
+import entity.Category;
 import java.util.Map;
 
 /**

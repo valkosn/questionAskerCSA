@@ -1,7 +1,7 @@
 package dao;
 
-import enteties.Category;
-import enteties.QA;
+import entity.Category;
+import entity.QA;
 import service.QaService;
 import utils.ConnectionProvider;
 

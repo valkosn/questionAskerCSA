@@ -27,6 +27,8 @@
         <!-- SQL DB-->
         <postgresql.jdbc.version>9.1-901.jdbc4</postgresql.jdbc.version>
 
+        <!-- JPA 2.1 -->
+        <jpa.version>1.0.0.Final</jpa.version>
         <!-- Hibernate-->
         <hibernate.core.version>5.2.4.Final</hibernate.core.version>
 
@@ -126,6 +128,13 @@
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.jdbc.version}</version>
+        </dependency>
+
+        <!-- JPA -->
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>${jpa.version}</version>
         </dependency>
 
         <!-- Hibernate -->

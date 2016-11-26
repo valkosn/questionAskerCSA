@@ -1,5 +1,5 @@
-import enteties.Answer;
-import enteties.QA;
+import entity.Answer;
+import entity.QA;
 import service.QaService;
 
 import java.io.BufferedReader;

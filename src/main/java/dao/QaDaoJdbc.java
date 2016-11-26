@@ -1,8 +1,8 @@
 package dao;
 
-import enteties.Answer;
-import enteties.Category;
-import enteties.QA;
+import entity.Answer;
+import entity.Category;
+import entity.QA;
 import utils.ConnectionProvider;
 
 import java.sql.*;

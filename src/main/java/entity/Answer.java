@@ -1,4 +1,4 @@
-package enteties;
+package entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
@@ -39,4 +39,6 @@ public final class Answer {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+
 }

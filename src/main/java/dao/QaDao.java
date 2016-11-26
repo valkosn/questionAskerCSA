@@ -1,6 +1,6 @@
 package dao;
 
-import enteties.QA;
+import entity.QA;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package service;
 
 import dao.QaDao;
-import enteties.Answer;
-import enteties.QA;
+import entity.Answer;
+import entity.QA;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;

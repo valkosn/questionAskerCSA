@@ -1,6 +1,6 @@
 package dao;
 
-import enteties.Category;
+import entity.Category;
 
 import java.util.Map;
 
