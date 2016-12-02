@@ -32,14 +32,14 @@
         <constructor-arg name="connectionProvider" ref="connection_provider"/>
     </bean>
 
-    <!--<bean id="category_dao" class="dao.CategoryDaoJdbc">-->
-        <!--<property name="connection" ref="connection_provider"/>-->
-        <!--<property name="qaService" ref="qa_service"/>-->
-    <!--</bean>-->
-
-    <bean id="category_dao" class="dao.CategoryDaoJpaHibernate">
+    <bean id="category_dao" class="dao.CategoryDaoJdbc">
+        <property name="connection" ref="connection_provider"/>
         <property name="qaService" ref="qa_service"/>
     </bean>
+
+    <!--<bean id="category_dao" class="dao.CategoryDaoJpa">-->
+        <!--<property name="qaService" ref="qa_service"/>-->
+    <!--</bean>-->
 
     <!-- Service Beans -->
 

@@ -41,9 +41,9 @@ public class DBInitializerImpl implements DBInitializer {
   public void init() throws IOException {
     long startTime = System.currentTimeMillis();
     try (Statement statement = this.connection.createStatement()) {
-      statement.executeUpdate("DROP TABLE IF EXISTS answers");
-      statement.executeUpdate("DROP TABLE IF EXISTS questions");
-      statement.executeUpdate("DROP TABLE IF EXISTS categories");
+      statement.executeUpdate("DROP TABLE IF EXISTS answers CASCADE");
+      statement.executeUpdate("DROP TABLE IF EXISTS questions CASCADE");
+      statement.executeUpdate("DROP TABLE IF EXISTS categories CASCADE");
       statement.execute("CREATE TABLE IF NOT EXISTS categories (uid SERIAL PRIMARY KEY, category_value VARCHAR(50))");
       statement.execute("CREATE TABLE IF NOT EXISTS questions (uid SERIAL PRIMARY KEY, category_id INT REFERENCES categories(uid), question_value VARCHAR(400))");
       statement.execute("CREATE TABLE IF NOT EXISTS answers (uid SERIAL PRIMARY KEY, question_id INT NOT NULL REFERENCES questions (uid), answer_value VARCHAR(400), right_answer BOOL)");

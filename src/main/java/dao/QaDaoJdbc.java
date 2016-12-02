@@ -64,6 +64,7 @@ public class QaDaoJdbc implements QaDao {
         return questionId;
     }
 
+    //TODO: SQL injection is possible
     @Override
     public List<QA> getRandomQuestions(int amount, String[] categories) {
         List<QA> qaList = new ArrayList<>();

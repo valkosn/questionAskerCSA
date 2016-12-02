@@ -24,7 +24,7 @@ public class HibernateUtil {
     }*/
 
 
-    private static final String PERSISTENT_UNIT_NAME = "item-manager-pu";
+    private static final String PERSISTENT_UNIT_NAME = "asker-manager-pu";
 
     private static final EntityManagerFactory emf;
 
