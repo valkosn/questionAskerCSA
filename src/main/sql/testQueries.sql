@@ -1,10 +1,12 @@
 -- 1.v1 Скільки людей живе у Львові
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+BEGIN TRANSACTION;
 SELECT count(userid)
 FROM userinfo
 WHERE cityid IN (SELECT cityid
                  FROM city
                  WHERE cityname = 'Lviv');
-
+COMMIT TRANSACTION;
 -- 1.v2
 SELECT count(userid)
 FROM userinfo

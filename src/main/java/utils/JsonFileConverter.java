@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by Valko Serhii on 02-Sep-16.
+ * @author by Sergii Valko on 02-Sep-16.
  */
 public class JsonFileConverter {
 

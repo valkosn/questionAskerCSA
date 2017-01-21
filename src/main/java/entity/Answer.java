@@ -1,6 +1,7 @@
 package entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -22,6 +23,7 @@ public final class Answer {
     @Column(name = "answer_value")
     private String answer;
 
+    @JsonIgnore
     @Column(name = "right_answer")
     private Boolean right;
 

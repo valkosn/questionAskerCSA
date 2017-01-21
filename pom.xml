@@ -29,8 +29,12 @@
 
         <!-- JPA 2.1 -->
         <jpa.version>1.0.0.Final</jpa.version>
+
         <!-- Hibernate-->
         <hibernate.core.version>5.2.4.Final</hibernate.core.version>
+
+        <!-- MongoDB -->
+        <mongoDB.driver.version>3.4.0</mongoDB.driver.version>
 
         <!-- Other util dependencies-->
         <json.version>20160212</json.version>
@@ -153,6 +157,14 @@
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate.core.version}</version>
         </dependency>
+
+        <!-- MongoDB -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver</artifactId>
+            <version>${mongoDB.driver.version}</version>
+        </dependency>
+
 
         <!-- Other util dependencies -->
         <dependency>
