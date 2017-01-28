@@ -5,8 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>questionAsker</groupId>
-    <artifactId>questionAskerCSA</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>questionAsker</artifactId>
+    <version>1.0</version>
+    <name>asker</name>
     <packaging>war</packaging>
 
     <properties>
@@ -182,6 +183,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
