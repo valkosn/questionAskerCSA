@@ -6,28 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>QuestionAsker</title>
-    <link href="/qa/resources/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/qa/resources/lib/chosen_v1.6.2/chosen.min.css" rel="stylesheet" type="text/css">
-    <link href="/qa/resources/lib/chosen_v1.6.2/chosen-bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="/qa/resources/css/main.css" rel="stylesheet" type="text/css">
+    <link href="/asker/resources/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/asker/resources/lib/chosen_v1.6.2/chosen.min.css" rel="stylesheet" type="text/css">
+    <link href="/asker/resources/lib/chosen_v1.6.2/chosen-bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/asker/resources/css/main.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
 
-    <script src="/qa/resources/lib/jquery-3.1.0.min.js" type="text/javascript"></script>
-    <script src="/qa/resources/lib/chosen_v1.6.2/chosen.jquery.min.js" type="text/javascript"></script>
-    <script src="/qa/resources/js/chosenConfig.js" type="text/javascript"></script>
-    <script src="/qa/resources/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="/asker/resources/lib/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="/asker/resources/lib/chosen_v1.6.2/chosen.jquery.min.js" type="text/javascript"></script>
+    <script src="/asker/resources/js/chosenConfig.js" type="text/javascript"></script>
+    <script src="/asker/resources/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
     <script>
         data = ${data};
         questionsAmount = ${questionsAmount};
         timePerQuestion = ${timePerQuestion};
     </script>
-    <script src="/qa/resources/js/common.js" type="text/javascript"></script>
+    <script src="/asker/resources/js/common.js" type="text/javascript"></script>
     <%
         Object additionalJS = request.getAttribute("additionalJS");
         if (!(additionalJS == null) && !additionalJS.toString().isEmpty()) {
     %>
-    <script src="/qa/resources/js/${additionalJS}.js" type="text/javascript"></script>
+    <script src="/asker/resources/js/${additionalJS}.js" type="text/javascript"></script>
     <%
         }
     %>
@@ -36,9 +36,9 @@
 
 <header>
     <ul class="nav nav-pills">
-        <li role="presentation" class="active"><a href="/qa/start">Home</a></li>
-        <li role="presentation"><a href="/qa/config/questionManager/">Question Manager</a></li>
-        <li role="presentation"><a href="/qa/config/categoryManager/">Category Manager</a></li>
+        <li role="presentation" class="active"><a href="/asker/start">Home</a></li>
+        <li role="presentation"><a href="/asker/config/questionManager/">Question Manager</a></li>
+        <li role="presentation"><a href="/asker/config/categoryManager/">Category Manager</a></li>
     </ul>
 </header>
 

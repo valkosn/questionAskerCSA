@@ -3,19 +3,19 @@
 <html>
 <head>
     <title>Question Asker</title>
-    <link href="/qa/resources/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/qa/resources/lib/DataTables-1.10.12/media/css/jquery.dataTables.min.css" rel="stylesheet"
+    <link href="/asker/resources/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/asker/resources/lib/DataTables-1.10.12/media/css/jquery.dataTables.min.css" rel="stylesheet"
           type="text/css">
-    <link href="/qa/resources/lib/DataTables-1.10.12/media/css/dataTables.bootstrap.min.css" rel="stylesheet"
+    <link href="/asker/resources/lib/DataTables-1.10.12/media/css/dataTables.bootstrap.min.css" rel="stylesheet"
           type="text/css">
-    <link href="/qa/resources/css/main.css" rel="stylesheet" type="text/css">
+    <link href="/asker/resources/css/main.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
 
-    <script src="/qa/resources/lib/jquery-3.1.0.min.js" type="text/javascript"></script>
-    <script src="/qa/resources/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="/qa/resources/lib/DataTables-1.10.12/media/js/jquery.dataTables.min.js"
+    <script src="/asker/resources/lib/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="/asker/resources/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/asker/resources/lib/DataTables-1.10.12/media/js/jquery.dataTables.min.js"
             type="text/javascript"></script>
-    <script src="/qa/resources/lib/DataTables-1.10.12/media/js/dataTables.bootstrap.min.js"
+    <script src="/asker/resources/lib/DataTables-1.10.12/media/js/dataTables.bootstrap.min.js"
             type="text/javascript"></script>
 
 </head>
@@ -23,9 +23,9 @@
 
 <header>
     <ul class="nav nav-pills">
-        <li role="presentation"><a href="/qa/start">Home</a></li>
-        <li role="presentation" class="active"><a href="/qa/config/questionManager/">Question Manager</a></li>
-        <li role="presentation"><a href="/qa/config/categoryManager/">Category Manager</a></li>
+        <li role="presentation"><a href="/asker/start">Home</a></li>
+        <li role="presentation" class="active"><a href="/asker/config/questionManager/">Question Manager</a></li>
+        <li role="presentation"><a href="/asker/config/categoryManager/">Category Manager</a></li>
         <li role="presentation"><a id="addNewQuestionButton" data-toggle="modal" data-target="#questionModal"
                                    onclick="newQ()">Add new question</a></li>
     </ul>
@@ -176,7 +176,7 @@
                 requestMethod = "POST";
             }
             $.ajax({
-                url: "/qa/config/questionManager",
+                url: "/asker/config/questionManager",
                 type: requestMethod,
                 data: JSON.stringify(question),
                 dataType: "text",
@@ -196,7 +196,7 @@
 
     function edit(questionId) {
         $.ajax({
-            url: "/qa/config/questionManager/" + questionId,
+            url: "/asker/config/questionManager/" + questionId,
             type: "GET",
             success: function (data) {
                 render(data);
@@ -210,7 +210,7 @@
 
     function deleteQ(questionId) {
         $.ajax({
-            url: "/qa/config/questionManager/" + questionId,
+            url: "/asker/config/questionManager/" + questionId,
             type: "DELETE",
             success: function () {
                 location.reload(true);
