@@ -10,6 +10,10 @@ import java.io.Serializable;
  */
 @Entity()
 @Table(name = "categories")
+@NamedQueries({
+        @NamedQuery(name = "getAllCategories", query = "select cat from Category cat"),
+        @NamedQuery(name = "getCategoryByName", query = "SELECT cat from Category cat where cat.categoryName = :categoryName")
+})
 public class Category implements Serializable{
 
     @Id

@@ -10,97 +10,82 @@
     <name>asker</name>
     <packaging>war</packaging>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.7.RELEASE</version>
+    </parent>
+
     <properties>
         <!-- General properties -->
         <java.version>1.8</java.version>
 
         <!-- Web -->
         <jsp.version>2.2</jsp.version>
-        <jstl.version>1.2</jstl.version>
-        <servlet.version>3.1.0</servlet.version>
-
-        <!-- Spring -->
-        <spring-framework.version>4.1.6.RELEASE</spring-framework.version>
-
-        <!-- Jackson-->
-        <jackson.version>2.8.1</jackson.version>
 
         <!-- SQL DB-->
-        <postgresql.jdbc.version>9.1-901.jdbc4</postgresql.jdbc.version>
+        <postgresql.jdbc.version>42.1.4</postgresql.jdbc.version>
 
         <!-- JPA 2.1 -->
         <jpa.version>1.0.0.Final</jpa.version>
 
-        <!-- Hibernate-->
-        <hibernate.core.version>5.2.4.Final</hibernate.core.version>
-
-        <!-- MongoDB -->
-        <mongoDB.driver.version>3.4.0</mongoDB.driver.version>
-
         <!-- Other util dependencies-->
-        <json.version>20160212</json.version>
         <log4j.version>1.2.17</log4j.version>
 
     </properties>
-
-    <dependencyManagement>
-        <!-- All spring dependencies -->
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>${spring-framework.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
 
         <!-- Spring -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-beans</artifactId>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-context</artifactId>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-context-support</artifactId>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-web</artifactId>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-webmvc</artifactId>-->
+        <!--</dependency>-->
 
 
         <!-- Other Servlet Web dependencies -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>${jstl.version}</version>
         </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -130,7 +115,7 @@
 
         <!-- SQL DB -->
         <dependency>
-            <groupId>postgresql</groupId>
+            <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.jdbc.version}</version>
         </dependency>
@@ -146,24 +131,20 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate.core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate.core.version}</version>
         </dependency>
 
         <!-- MongoDB -->
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver</artifactId>
-            <version>${mongoDB.driver.version}</version>
         </dependency>
 
 
@@ -171,7 +152,6 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>${json.version}</version>
         </dependency>
 
         <dependency>
@@ -182,22 +162,29 @@
 
     </dependencies>
 
+    <!--<build>-->
+        <!--<finalName>${project.name}</finalName>-->
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-compiler-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<source>${java.version}</source>-->
+                    <!--<target>${java.version}</target>-->
+                    <!--<compilerArgument>-Xlint:all</compilerArgument>-->
+                    <!--<showWarnings>true</showWarnings>-->
+                    <!--<showDeprecation>true</showDeprecation>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
+    <!--</build>-->
     <build>
-        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <compilerArgument>-Xlint:all</compilerArgument>
-                    <showWarnings>true</showWarnings>
-                    <showDeprecation>true</showDeprecation>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
-
 
 </project>

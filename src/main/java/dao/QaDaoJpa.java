@@ -2,12 +2,17 @@ package dao;
 
 import entity.QA;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
  * Created by Valko Serhii on 11/29/2016.
  */
 public class QaDaoJpa implements QaDao{
+
+
+
     @Override
     public List<QA> getRandomQuestions(int amount, String[] categories) {
         return null;

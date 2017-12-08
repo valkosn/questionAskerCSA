@@ -265,7 +265,7 @@ function checkQuestion(questionNumber) {
 function newAttempt() {
     var q = confirm("You really want to try again? All your results will be wipe!");
     if (q) {
-        window.location.replace("/qa/start");
+        window.location.replace("/asker/start");
     }
 }
 
@@ -304,7 +304,7 @@ function time() {
 
 function configAjax() {
     $.ajax({
-        url: "/qa/config",
+        url: "/asker/config",
         type: "GET",
         async: false,
     });

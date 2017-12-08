@@ -5,7 +5,7 @@
 function getCorrectAnswer(questionNumber) {
     var result = null;
     $.ajax({
-        url: "/qa/evaluate",
+        url: "/asker/evaluate",
         type: "GET",
         async: false,
         data: {'data': data[questionNumber].questionId},
