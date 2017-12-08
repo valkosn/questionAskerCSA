@@ -304,7 +304,7 @@ function time() {
 
 function configAjax() {
     $.ajax({
-        url: "/asker/config",
+        url: "/asker/com.asker.config",
         type: "GET",
         async: false,
     });

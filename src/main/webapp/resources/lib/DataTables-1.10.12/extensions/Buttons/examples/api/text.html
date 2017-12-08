@@ -32,7 +32,7 @@ $(document).ready(function() {
 		buttons: [
 			{
 				text: 'My button',
-				action: function ( e, dt, node, config ) {
+				action: function ( e, dt, node, com.asker.config ) {
 					this.text( 'My button ('+config.counter+')' );
 					config.counter++;
 				},
@@ -62,7 +62,7 @@ $(document).ready(function() {
 					that the button methods such as <a href="//datatables.net/reference/api/button().text()"><code class="api" title=
 					"Buttons API method">button().text()</code></a> are available under <code>this</code> - <code>this.text()</code> in this case.
 					</li>
-					<li>The <code>config</code> object passed in as the forth parameter to the <code>action</code> method is the button configuration. In this example
+					<li>The <code>com.asker.config</code> object passed in as the forth parameter to the <code>action</code> method is the button configuration. In this example
 					<code>counter</code> is set to 1 initially and that parameter can continue to be used by the button (self-referencing effectively).</li>
 				</ol>
 			</div>
@@ -556,20 +556,20 @@ $(document).ready(function() {
 			<div class="tabs">
 				<div class="js">
 					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
-	$('#example').DataTable( {
-		dom: 'Bfrtip',
-		buttons: [
-			{
-				text: 'My button',
-				action: function ( e, dt, node, config ) {
-					this.text( 'My button ('+config.counter+')' );
-					config.counter++;
-				},
-				counter: 1
-			}
-		]
-	} );
-} );</code>
+                    $('#example').DataTable( {
+                    dom: 'Bfrtip',
+                    buttons: [
+                    {
+                    text: 'My button',
+                    action: function ( e, dt, node, com.asker.config ) {
+                    this.text( 'My button ('+com.asker.config.counter+')' );
+                    com.asker.config.counter++;
+                    },
+                    counter: 1
+                    }
+                    ]
+                    } );
+                    } );</code>
 					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
 					<ul>
 						<li>

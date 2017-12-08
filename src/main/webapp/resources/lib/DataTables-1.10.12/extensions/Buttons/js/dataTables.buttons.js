@@ -735,7 +735,7 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Resolve a button configuration
-	 * @param  {string|function|object} conf Button config to resolve
+	 * @param  {string|function|object} conf Button com.asker.config to resolve
 	 * @return {object} Button configuration
 	 * @private
 	 */

@@ -96,7 +96,7 @@
 <script>
     function addNewCat() {
         $.ajax({
-            url: "/asker/config/categoryManager",
+            url: "/asker/com.asker.config/categoryManager",
             type: "POST",
             data: {'data': $("#new_category").val()},
             dataType: "text",
@@ -112,7 +112,7 @@
 
     function rmCat(catID) {
         $.ajax({
-            url: "/asker/config/categoryManager/" + catID,
+            url: "/asker/com.asker.config/categoryManager/" + catID,
             type: "DELETE",
             success: function () {
                 location.reload(true);

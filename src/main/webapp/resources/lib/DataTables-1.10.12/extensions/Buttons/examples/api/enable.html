@@ -36,7 +36,7 @@ $(document).ready(function() {
 		buttons: [
 			{
 				text: 'Row selected data',
-				action: function ( e, dt, node, config ) {
+				action: function ( e, dt, node, com.asker.config ) {
 					alert(
 						'Row data: '+
 						JSON.stringify( dt.row( { selected: true } ).data() )
@@ -46,7 +46,7 @@ $(document).ready(function() {
 			},
 			{
 				text: 'Count rows selected',
-				action: function ( e, dt, node, config ) {
+				action: function ( e, dt, node, com.asker.config ) {
 					alert( 'Rows: '+ dt.rows( { selected: true } ).count() );
 				},
 				enabled: false
@@ -585,7 +585,7 @@ $(document).ready(function() {
 		buttons: [
 			{
 				text: 'Row selected data',
-				action: function ( e, dt, node, config ) {
+				action: function ( e, dt, node, com.asker.config ) {
 					alert(
 						'Row data: '+
 						JSON.stringify( dt.row( { selected: true } ).data() )
@@ -595,7 +595,7 @@ $(document).ready(function() {
 			},
 			{
 				text: 'Count rows selected',
-				action: function ( e, dt, node, config ) {
+				action: function ( e, dt, node, com.asker.config ) {
 					alert( 'Rows: '+ dt.rows( { selected: true } ).count() );
 				},
 				enabled: false

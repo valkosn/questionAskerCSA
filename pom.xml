@@ -142,10 +142,10 @@
         </dependency>
 
         <!-- MongoDB -->
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongodb-driver</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.mongodb</groupId>-->
+            <!--<artifactId>mongodb-driver</artifactId>-->
+        <!--</dependency>-->
 
 
         <!-- Other util dependencies -->

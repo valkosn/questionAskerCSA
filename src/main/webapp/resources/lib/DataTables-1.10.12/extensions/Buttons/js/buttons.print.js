@@ -136,7 +136,7 @@ DataTable.ext.buttons.print = {
 			html;
 		// $(win.document.body).html(
 		// 	'<h1>'+title+'</h1>'+
-		// 	'<div>'+config.message+'</div>'+
+		// 	'<div>'+com.asker.config.message+'</div>'+
 		// 	html
 		// );
 

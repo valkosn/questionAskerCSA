@@ -176,7 +176,7 @@
                 requestMethod = "POST";
             }
             $.ajax({
-                url: "/asker/config/questionManager",
+                url: "/asker/com.asker.config/questionManager",
                 type: requestMethod,
                 data: JSON.stringify(question),
                 dataType: "text",
@@ -196,7 +196,7 @@
 
     function edit(questionId) {
         $.ajax({
-            url: "/asker/config/questionManager/" + questionId,
+            url: "/asker/com.asker.config/questionManager/" + questionId,
             type: "GET",
             success: function (data) {
                 render(data);
@@ -210,7 +210,7 @@
 
     function deleteQ(questionId) {
         $.ajax({
-            url: "/asker/config/questionManager/" + questionId,
+            url: "/asker/com.asker.config/questionManager/" + questionId,
             type: "DELETE",
             success: function () {
                 location.reload(true);
