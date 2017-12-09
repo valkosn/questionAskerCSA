@@ -25,7 +25,7 @@ public class JsonFileConverter {
     @SuppressWarnings("unchecked")
     public List<QA> toJavaObjectViaJackson(String filePath) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        MappingIterator<QA> objectMappingIterator = mapper.readerFor(QA.class).readValues(this.getClass().getClassLoader().getResourceAsStream(filePath));
+        MappingIterator<QA> objectMappingIterator = mapper.readerFor(QA.class).readValues(new File(filePath));
         return objectMappingIterator.readAll();
     }
 }
